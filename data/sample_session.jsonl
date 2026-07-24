@@ -1,0 +1,16 @@
+# Sample distilled F1 telemetry replay (one JSON event per line).
+# This is the shape the upstream distillation step exports. session_time is in
+# seconds since the green light; the simulator paces the feed off these values.
+{"type": "race_start", "session_time": 0.0, "priority": 95, "lap": 1, "detail": "Lights out and away we go", "payload": {"grid": "VER-LEC-NOR"}}
+{"type": "overtake", "session_time": 6.5, "priority": 80, "lap": 1, "drivers": ["LEC", "VER"], "location": "Turn 1", "detail": "Leclerc sends it down the inside", "payload": {"gap": "0.3s"}}
+{"type": "tick", "session_time": 12.0, "priority": 10, "lap": 1, "detail": "DRS train forming"}
+{"type": "overtake", "session_time": 18.0, "priority": 78, "lap": 2, "drivers": ["VER", "LEC"], "location": "Turn 4", "detail": "Verstappen immediately fights back", "payload": {"gap": "0.1s"}}
+{"type": "fastest_lap", "session_time": 40.0, "priority": 60, "lap": 3, "drivers": ["NOR"], "detail": "Norris sets the fastest lap", "payload": {"time": "1:31.402"}}
+{"type": "weather_change", "session_time": 55.0, "priority": 70, "lap": 4, "detail": "Light rain reported in sector 2", "payload": {"track_temp": "38C", "condition": "light_rain"}}
+{"type": "yellow_flag", "session_time": 72.0, "priority": 88, "lap": 5, "location": "Sector 2", "detail": "Yellow flag, car off at the chicane", "payload": {"driver": "TSU"}}
+{"type": "safety_car", "session_time": 78.0, "priority": 92, "lap": 5, "detail": "Safety car deployed", "payload": {}}
+{"type": "pit_stop", "session_time": 96.0, "priority": 65, "lap": 6, "drivers": ["VER"], "detail": "Verstappen dives into the pits under the safety car", "payload": {"tyre": "medium"}}
+{"type": "green_flag", "session_time": 130.0, "priority": 85, "lap": 8, "detail": "Green flag, racing resumes", "payload": {}}
+{"type": "overtake", "session_time": 134.0, "priority": 82, "lap": 8, "drivers": ["HAM", "RUS"], "location": "Turn 1", "detail": "Hamilton pounces at the restart", "payload": {"gap": "0.2s"}}
+{"type": "fastest_lap", "session_time": 150.0, "priority": 62, "lap": 9, "drivers": ["VER"], "detail": "Verstappen goes fastest on fresh mediums", "payload": {"time": "1:30.881"}}
+{"type": "race_finish", "session_time": 180.0, "priority": 97, "lap": 10, "drivers": ["VER"], "detail": "Verstappen takes the chequered flag", "payload": {"margin": "2.1s"}}
