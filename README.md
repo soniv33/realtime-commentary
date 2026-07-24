@@ -12,6 +12,25 @@ tokens are intercepted live, grouped by punctuation, and pushed into ElevenLabs'
 streaming-input WebSocket while the model is still writing — so the first phrase is
 already speaking as the sentence completes.
 
+## Live demo (GitHub Pages)
+
+There's a self-contained browser demo in [`docs/`](docs/index.html) that runs the
+**same dual-streaming pipeline client-side** — replayed telemetry → token stream →
+punctuation chunker → ElevenLabs Flash streaming-input WebSocket → Web Audio, with
+a live broadcast-offset slider and an event→first-audio TTFB readout.
+
+- **No keys:** shows the full streaming + chunk-dispatch behaviour, muted.
+- **Real audio:** paste your own ElevenLabs key (kept in the browser tab only,
+  never committed) and it speaks for real.
+- **Real Claude (optional):** tick the box and add an Anthropic key to generate the
+  commentary with Claude Haiku live instead of the scripted lines.
+
+Once Pages is enabled it's served at `https://<owner>.github.io/realtime-commentary/`.
+
+> Why keys are pasted at runtime: GitHub Pages is static — there's no server to
+> hold a secret. The Python backend (or a serverless proxy) is where keys live in
+> production; the static demo asks the presenter to supply their own.
+
 ## Architecture
 
 ```

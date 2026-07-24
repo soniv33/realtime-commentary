@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>F1 Realtime Voice Commentator — Live Demo</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏎️</text></svg>" />
+<style>
+  :root {
+    --bg: #0a0e14;
+    --panel: #121826;
+    --panel-2: #0e1420;
+    --line: #1f2a3d;
+    --text: #e6edf6;
+    --muted: #8595ad;
+    --red: #e10600;      /* F1 red */
+    --amber: #ffb800;
+    --green: #21d07a;
+    --cyan: #35c4dc;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--sans); line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--cyan); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 20px 18px 60px; }
+
+  header.top {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 20px;
+  }
+  .badge {
+    width: 46px; height: 46px; border-radius: 10px; flex: none;
+    background: linear-gradient(135deg, var(--red), #7a0300);
+    display: grid; place-items: center; font-size: 26px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 8px 24px rgba(225,6,0,.25);
+  }
+  header.top h1 { font-size: 19px; margin: 0; letter-spacing: .2px; }
+  header.top .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  header.top .spacer { flex: 1; }
+  .ghlink { font-size: 13px; color: var(--muted); text-decoration: none; border: 1px solid var(--line);
+            padding: 7px 12px; border-radius: 8px; white-space: nowrap; }
+  .ghlink:hover { border-color: var(--cyan); color: var(--text); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 18px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .panel h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted);
+    margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel-2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .panel h2 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .panel h2 .dot.live { background: var(--red); box-shadow: 0 0 0 0 rgba(225,6,0,.6); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(225,6,0,.5);} 70% { box-shadow: 0 0 0 8px rgba(225,6,0,0);} 100% { box-shadow: 0 0 0 0 rgba(225,6,0,0);} }
+
+  /* Controls */
+  .controls { padding: 16px; display: grid; gap: 14px; }
+  .row { display: grid; gap: 6px; }
+  .row.two { grid-template-columns: 1fr 1fr; gap: 12px; }
+  label { font-size: 12px; color: var(--muted); }
+  input[type=text], input[type=password], select {
+    width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; padding: 9px 11px; font-size: 13px; font-family: var(--mono);
+  }
+  input:focus, select:focus { outline: none; border-color: var(--cyan); }
+  input[type=range] { width: 100%; accent-color: var(--red); }
+  .hint { font-size: 11.5px; color: var(--muted); }
+  .btnrow { display: flex; gap: 10px; }
+  button {
+    font-family: var(--sans); font-size: 14px; font-weight: 600; cursor: pointer;
+    border: none; border-radius: 9px; padding: 11px 18px; color: #fff;
+    background: var(--red); transition: filter .15s, transform .05s;
+  }
+  button:hover { filter: brightness(1.08); }
+  button:active { transform: translateY(1px); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
+  .toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); cursor: pointer; }
+  .toggle input { width: 16px; height: 16px; accent-color: var(--red); }
+
+  .warn {
+    font-size: 12px; color: var(--amber); background: rgba(255,184,0,.08);
+    border: 1px solid rgba(255,184,0,.25); border-radius: 8px; padding: 9px 11px;
+  }
+  .metric-row { display: flex; gap: 10px; }
+  .metric {
+    flex: 1; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; text-align: center;
+  }
+  .metric .v { font-family: var(--mono); font-size: 20px; font-weight: 700; }
+  .metric .v.good { color: var(--green); }
+  .metric .k { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
+
+  /* Telemetry feed */
+  .feed { height: 360px; overflow-y: auto; padding: 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .evt {
+    border: 1px solid var(--line); border-left: 3px solid var(--muted); border-radius: 8px;
+    padding: 9px 12px; background: var(--panel-2); animation: slidein .25s ease;
+  }
+  @keyframes slidein { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: none;} }
+  .evt.tick { opacity: .5; }
+  .evt.hot { border-left-color: var(--red); }
+  .evt .etop { display: flex; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .evt .etype { color: var(--text); font-weight: 700; letter-spacing: .4px; text-transform: uppercase; }
+  .evt .edetail { font-size: 13.5px; margin-top: 3px; }
+  .evt .emeta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .chip { display: inline-block; font-family: var(--mono); font-size: 10.5px; padding: 1px 6px; border-radius: 5px;
+          border: 1px solid var(--line); color: var(--cyan); margin-right: 4px; }
+
+  /* Commentary */
+  .booth { padding: 16px; display: grid; gap: 14px; }
+  .now {
+    min-height: 92px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .now .status { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display:flex; align-items:center; gap:8px; }
+  .now .status .spk { width:8px;height:8px;border-radius:50%;background:var(--line); }
+  .now .status .spk.on { background: var(--green); box-shadow:0 0 10px var(--green); }
+  .now .line { font-size: 20px; font-weight: 600; letter-spacing: .1px; }
+  .now .line .cursor { display:inline-block; width:8px; background: var(--red); margin-left:2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .log { height: 150px; overflow-y: auto; background: var(--panel-2); border: 1px solid var(--line);
+         border-radius: 10px; padding: 10px 12px; font-family: var(--mono); font-size: 11.5px; }
+  .log .l { display: flex; gap: 8px; padding: 1px 0; color: var(--muted); }
+  .log .l .t { color: var(--cyan); flex: none; }
+  .log .l.audio .t { color: var(--green); }
+  .log .l.err { color: var(--amber); }
+
+  footer.info { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 13.5px; }
+  footer.info h3 { color: var(--text); font-size: 14px; margin: 18px 0 8px; }
+  footer.info code { font-family: var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font-size: 12px; }
+  .flow { font-family: var(--mono); font-size: 12px; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
+          border-radius: 10px; padding: 12px 14px; overflow-x: auto; white-space: pre; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="badge">🏎️</div>
+    <div>
+      <h1>F1 Realtime Voice Commentator</h1>
+      <div class="sub">Live telemetry → fast LLM → ElevenLabs, streamed in the browser · ultra-low-latency voice AI POV</div>
+    </div>
+    <div class="spacer"></div>
+    <a class="ghlink" id="repolink" href="#" target="_blank" rel="noopener">View source ↗</a>
+  </header>
+
+  <div class="grid">
+
+    <!-- LEFT: telemetry + controls -->
+    <div style="display:grid; gap:18px; align-content:start;">
+      <section class="panel">
+        <h2><span class="dot" id="feeddot"></span>Telemetry feed (replay)</h2>
+        <div class="feed" id="feed"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Booth controls</h2>
+        <div class="controls">
+          <div class="row">
+            <label for="elKey">ElevenLabs API key <span class="hint">— pasted at runtime, kept in this tab only, never sent anywhere but ElevenLabs</span></label>
+            <input type="password" id="elKey" placeholder="xi-... (leave blank for silent visual demo)" autocomplete="off" />
+          </div>
+          <div class="row two">
+            <div class="row">
+              <label for="voiceId">Voice ID</label>
+              <input type="text" id="voiceId" value="JBFqnCBsd6RMkjVDRZzb" />
+            </div>
+            <div class="row">
+              <label for="speed">Replay speed</label>
+              <select id="speed">
+                <option value="2">2× </option>
+                <option value="4" selected>4× (demo)</option>
+                <option value="8">8×</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="offset">Broadcast offset — <span id="offsetVal">0.0</span>s <span class="hint">(delay audio to sync with a TV feed; synthesis still starts immediately)</span></label>
+            <input type="range" id="offset" min="0" max="5" step="0.1" value="0" />
+          </div>
+
+          <label class="toggle"><input type="checkbox" id="liveLLM" /> Use real Claude for commentary (adds an Anthropic key field)</label>
+          <div class="row" id="anthropicRow" style="display:none;">
+            <label for="anKey">Anthropic API key <span class="hint">— optional; exposes the key to this browser tab (demo only)</span></label>
+            <input type="password" id="anKey" placeholder="sk-ant-..." autocomplete="off" />
+            <div class="warn">Calling Anthropic from a browser exposes the key to anyone who can see this tab. Fine for a live demo with your own key; production uses a serverless proxy. Default (unchecked) uses scripted commentary and needs no key.</div>
+          </div>
+
+          <div class="btnrow">
+            <button id="startBtn">▶ Start race</button>
+            <button id="stopBtn" class="ghost" disabled>■ Stop</button>
+          </div>
+          <div class="hint" id="audioNote"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT: commentary booth -->
+    <div style="display:grid; gap:18px; align-content:start;">
+      <section class="panel">
+        <h2><span class="dot" id="boothdot"></span>Commentary booth</h2>
+        <div class="booth">
+          <div class="metric-row">
+            <div class="metric"><div class="v" id="mTTFB">—</div><div class="k">Event→audio TTFB</div></div>
+            <div class="metric"><div class="v" id="mCalls">0</div><div class="k">Lines called</div></div>
+            <div class="metric"><div class="v" id="mChunks">0</div><div class="k">TTS chunks sent</div></div>
+          </div>
+
+          <div class="now">
+            <div class="status"><span class="spk" id="spk"></span><span id="statusText">Idle — press “Start race”</span></div>
+            <div class="line" id="commentaryLine"><span style="color:var(--muted)">The commentary will stream here, token by token…</span></div>
+          </div>
+
+          <div>
+            <label class="hint" style="display:block; margin-bottom:6px;">Dual-stream dispatch log — text chunks pushed to ElevenLabs as the sentence is still forming:</label>
+            <div class="log" id="log"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <footer class="info">
+    <p>This page runs the <strong>real dual-streaming pipeline in your browser</strong>: a replayed telemetry feed → a fast LLM token stream → a punctuation chunker → ElevenLabs’ Flash streaming-input WebSocket → Web Audio playback, with a live broadcast-offset. It’s the browser twin of the Python backend in this repo (<code>src/f1_commentator/</code>).</p>
+    <div class="flow">event ─▶ commentary token stream ─▶ chunk_by_punctuation ─▶ ElevenLabs stream-input WS ─▶ broadcast offset ─▶ speakers
+        (scripted, or real Claude Haiku)     (earliest boundary)         (real audio, PCM 16 kHz)</div>
+    <h3>Why keys are entered at runtime</h3>
+    <p>GitHub Pages is static — there’s no server to hold a secret. The production system keeps keys behind the Python backend (or a serverless proxy); this static demo asks the presenter to paste their own ElevenLabs key, which lives only in this browser tab and is never committed. With no key, the demo still shows the full streaming/chunking behaviour — just muted.</p>
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* ───────────────────────── Telemetry replay data ─────────────────────────
+   Mirrors data/sample_session.jsonl, with a scripted broadcast line per event
+   so the demo produces punchy commentary with zero API keys. session_time is
+   seconds since the green light and drives the replay pacing. */
+const EVENTS = [
+  { type:"race_start",     session_time:0.0,   priority:95, lap:1,  drivers:[],           detail:"Lights out and away we go",              commentary:"Lights out and away we go — it's chaos into turn one!" },
+  { type:"overtake",       session_time:6.5,   priority:80, lap:1,  drivers:["LEC","VER"],detail:"Leclerc sends it down the inside",       commentary:"Leclerc dives down the inside and snatches the lead from Verstappen!" },
+  { type:"tick",           session_time:12.0,  priority:10, lap:1,  drivers:[],           detail:"DRS train forming",                      commentary:"" },
+  { type:"overtake",       session_time:18.0,  priority:78, lap:2,  drivers:["VER","LEC"],detail:"Verstappen fights straight back",        commentary:"Verstappen fights straight back — the lead changes hands again!" },
+  { type:"fastest_lap",    session_time:40.0,  priority:60, lap:3,  drivers:["NOR"],      detail:"Norris sets the fastest lap",            commentary:"Norris lights up the timing screens with the fastest lap!" },
+  { type:"weather_change", session_time:55.0,  priority:70, lap:4,  drivers:[],           detail:"Light rain in sector 2",                 commentary:"Rain is arriving in sector two — this could turn everything upside down!" },
+  { type:"yellow_flag",    session_time:72.0,  priority:88, lap:5,  drivers:["TSU"],      detail:"Yellow flag, car off at the chicane",    commentary:"Yellow flags in sector two — Tsunoda is off at the chicane!" },
+  { type:"safety_car",     session_time:78.0,  priority:92, lap:5,  drivers:[],           detail:"Safety car deployed",                    commentary:"Safety car scrambled — the whole field bunches up behind it!" },
+  { type:"pit_stop",       session_time:96.0,  priority:65, lap:6,  drivers:["VER"],      detail:"Verstappen dives into the pits",         commentary:"Verstappen dives into the pits and gambles on fresh mediums!" },
+  { type:"green_flag",     session_time:130.0, priority:85, lap:8,  drivers:[],           detail:"Green flag, racing resumes",             commentary:"Green flag, we are racing again — hold your breath!" },
+  { type:"overtake",       session_time:134.0, priority:82, lap:8,  drivers:["HAM","RUS"],detail:"Hamilton pounces at the restart",        commentary:"Hamilton pounces at the restart and muscles past Russell!" },
+  { type:"fastest_lap",    session_time:150.0, priority:62, lap:9,  drivers:["VER"],      detail:"Verstappen goes fastest on fresh mediums",commentary:"Verstappen storms back with the fastest lap on new rubber!" },
+  { type:"race_finish",    session_time:180.0, priority:97, lap:10, drivers:["VER"],      detail:"Verstappen takes the chequered flag",    commentary:"Verstappen takes the chequered flag — a stunning drive to the win!" },
+];
+
+/* ───────────────────────── Threshold classifier ─────────────────────────
+   Same gate as the Python EventClassifier: worthy types, priority floor, and a
+   per-type cooldown (in session-time seconds). */
+const WORTHY = new Set(["yellow_flag","double_yellow","red_flag","green_flag","safety_car",
+  "virtual_safety_car","overtake","pit_stop","fastest_lap","retirement","race_start","race_finish","weather_change"]);
+const MIN_PRIORITY = 40, COOLDOWN = 4.0;
+const lastCalled = {};
+function shouldCommentate(ev) {
+  if (!WORTHY.has(ev.type)) return false;
+  if (ev.priority < MIN_PRIORITY) return false;
+  const last = lastCalled[ev.type];
+  if (last !== undefined && (ev.session_time - last) < COOLDOWN) return false;
+  lastCalled[ev.type] = ev.session_time;
+  return true;
+}
+
+/* ───────────────────────── Punctuation chunker ──────────────────────────
+   Port of orchestrator/chunker.py: flush at the EARLIEST qualifying boundary so
+   the first speakable phrase reaches ElevenLabs as soon as possible. */
+class Chunker {
+  constructor(min = 12) { this.min = min; this.buf = ""; }
+  _flushIndex() {
+    let hard = -1, soft = -1;
+    for (let i = 0; i < this.buf.length; i++) {
+      const c = this.buf[i];
+      if (hard === -1 && (c === "." || c === "!" || c === "?")) hard = i;
+      if (soft === -1 && (c === "," || c === ";" || c === ":") && (i + 1) >= this.min) soft = i;
+    }
+    const cands = [hard, soft].filter(i => i !== -1);
+    return cands.length ? Math.min(...cands) : -1;
+  }
+  push(delta) {
+    const out = [];
+    this.buf += delta;
+    while (true) {
+      const idx = this._flushIndex();
+      if (idx === -1) break;
+      const seg = this.buf.slice(0, idx + 1).trim();
+      if (seg) out.push(seg + " ");
+      this.buf = this.buf.slice(idx + 1);
+    }
+    return out;
+  }
+  flush() { const t = this.buf.trim(); this.buf = ""; return t ? [t + " "] : []; }
+}
+
+/* ───────────────────────── Commentary token streams ─────────────────────── */
+const SYSTEM_PROMPT =
+  "You are the lead voice commentator for a live Formula 1 broadcast. You receive one " +
+  "distilled telemetry event and call it for the audience. Rules, always: respond with " +
+  "exactly ONE punchy sentence; under 20 words; present tense; broadcast energy; no " +
+  "preamble, no emoji, no markdown, no quotes; use the standard driver code (e.g. VER) " +
+  "if drivers are named. Never invent facts beyond the event you are given.";
+
+function buildUserPrompt(ev) {
+  const lines = [`EVENT: ${ev.type}`, `HEADLINE: ${ev.detail}`];
+  if (ev.lap != null) lines.push(`LAP: ${ev.lap}`);
+  if (ev.drivers.length) lines.push(`DRIVERS: ${ev.drivers.join(", ")}`);
+  lines.push("Call it now in one sentence.");
+  return lines.join("\n");
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* Scripted: reveal the pre-written line in ~2-char deltas to mimic token streaming. */
+async function scriptedStream(ev, onDelta) {
+  const line = ev.commentary || ev.detail;
+  for (let i = 0; i < line.length; i += 2) {
+    if (!state.running) return;
+    onDelta(line.slice(i, i + 2));
+    await sleep(16);
+  }
+}
+
+/* Live: stream real Claude Haiku token deltas via the Messages API (browser). */
+async function claudeStream(ev, onDelta) {
+  const resp = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": state.anthropicKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true",
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5", max_tokens: 90, stream: true,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: "user", content: buildUserPrompt(ev) }],
+    }),
+  });
+  if (!resp.ok || !resp.body) throw new Error("Claude request failed (" + resp.status + ")");
+  const reader = resp.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let nl;
+    while ((nl = buf.indexOf("\n")) >= 0) {
+      const line = buf.slice(0, nl); buf = buf.slice(nl + 1);
+      if (!line.startsWith("data:")) continue;
+      const js = line.slice(5).trim();
+      if (!js || js === "[DONE]") continue;
+      try {
+        const evt = JSON.parse(js);
+        if (evt.type === "content_block_delta" && evt.delta && evt.delta.type === "text_delta") {
+          onDelta(evt.delta.text);
+        }
+      } catch (_) { /* keep-alive / partial */ }
+    }
+  }
+}
+
+/* ───────────────────────── Web Audio PCM player (offset-aware) ───────────── */
+class PcmPlayer {
+  constructor() { this.ac = null; this.next = 0; this.started = false; this.offset = 0; }
+  resume() {
+    if (!this.ac) this.ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (this.ac.state === "suspended") this.ac.resume();
+  }
+  reset(offsetSec) { this.started = false; this.next = 0; this.offset = offsetSec; }
+  push(int16) {
+    if (!this.ac) return;
+    const f32 = new Float32Array(int16.length);
+    for (let i = 0; i < int16.length; i++) f32[i] = int16[i] / 32768;
+    const buf = this.ac.createBuffer(1, f32.length, 16000);
+    buf.copyToChannel(f32, 0);
+    const src = this.ac.createBufferSource();
+    src.buffer = buf; src.connect(this.ac.destination);
+    const now = this.ac.currentTime;
+    if (!this.started) { this.next = now + this.offset; this.started = true; }  // broadcast offset applied once, per utterance
+    if (this.next < now) this.next = now;
+    src.start(this.next);
+    this.next += buf.duration;
+  }
+}
+const player = new PcmPlayer();
+
+function b64ToInt16(b64) {
+  const bin = atob(b64), len = bin.length, bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
+  return new Int16Array(bytes.buffer); // browsers are little-endian
+}
+
+/* ───────────────────────── The dual-streaming narrate() ──────────────────── */
+async function narrate(ev) {
+  const t0 = performance.now();
+  const chunker = new Chunker(12);
+  ui.beginLine();
+  ui.setStatus(`Calling: ${ev.type.replace(/_/g, " ")}`, false);
+  player.reset(state.offsetSec);
+
+  const useAudio = !!state.elKey;
+  let ws = null, firstByte = null, closed = Promise.resolve();
+
+  if (useAudio) {
+    const url = `wss://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(state.voiceId)}` +
+                `/stream-input?model_id=eleven_flash_v2_5&output_format=pcm_16000&optimize_streaming_latency=3`;
+    ws = new WebSocket(url);
+    await new Promise((res, rej) => { ws.onopen = res; ws.onerror = () => rej(new Error("ElevenLabs socket error")); });
+    ws.send(JSON.stringify({ text: " ", voice_settings: { stability: 0.4, similarity_boost: 0.85 }, xi_api_key: state.elKey }));
+    closed = new Promise(res => { ws.onclose = res; });
+    ws.onmessage = (m) => {
+      const d = JSON.parse(m.data);
+      if (d.audio) {
+        if (firstByte === null) { firstByte = performance.now() - t0; ui.setTTFB(firstByte); }
+        ui.speaking(true);
+        player.push(b64ToInt16(d.audio));
+      }
+      if (d.isFinal) { try { ws.close(); } catch (_) {} }
+    };
+  } else {
+    ui.note("Add an ElevenLabs key above for real audio — showing the silent visual stream.");
+  }
+
+  const dispatch = (chunk) => {
+    ui.logChunk(chunk, useAudio);
+    ui.bumpChunks();
+    if (ws && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ text: chunk, try_trigger_generation: true }));
+  };
+
+  const stream = state.liveLLM ? claudeStream : scriptedStream;
+  try {
+    await stream(ev, (delta) => {
+      ui.appendLine(delta);
+      for (const chunk of chunker.push(delta)) dispatch(chunk);
+    });
+  } catch (e) {
+    ui.logError(e.message || String(e));
+    if (state.liveLLM) { await scriptedStream(ev, (delta) => { ui.appendLine(delta); for (const c of chunker.push(delta)) dispatch(c); }); }
+  }
+  for (const chunk of chunker.flush()) dispatch(chunk);
+
+  if (ws) {
+    if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ text: "" }));  // EOS flush
+    await closed;
+  }
+  ui.bumpCalls();
+  ui.endLine();
+  ui.speaking(false);
+  ui.setStatus("Waiting for the next incident…", false);
+}
+
+/* ───────────────────────── Race loop + single-slot narrator ───────────────
+   The telemetry feed advances on its own clock; threshold events go into a
+   1-slot queue with drop-oldest, exactly like the Python pipeline — one
+   commentator voice, newest event wins if narration falls behind. */
+const state = {
+  running: false, slot: null, speed: 4, offsetSec: 0,
+  elKey: "", voiceId: "JBFqnCBsd6RMkjVDRZzb", liveLLM: false, anthropicKey: "",
+};
+
+async function narrator() {
+  while (state.running) {
+    if (state.slot) {
+      const ev = state.slot; state.slot = null;
+      try { await narrate(ev); } catch (e) { ui.logError(e.message || String(e)); }
+    } else {
+      await sleep(40);
+    }
+  }
+}
+
+async function runRace() {
+  ui.reset();
+  state.running = true;
+  ui.setLive(true);
+  narrator();
+  let prev = null;
+  for (const ev of EVENTS) {
+    if (!state.running) break;
+    if (prev !== null) {
+      let gap = (ev.session_time - prev) / state.speed;
+      gap = Math.min(gap, 3.0);
+      if (gap > 0) await sleep(gap * 1000);
+    }
+    if (!state.running) break;
+    prev = ev.session_time;
+    ui.renderEvent(ev);
+    if (shouldCommentate(ev)) state.slot = ev;  // drop-oldest: overwrite any unstarted event
+  }
+  // let the last utterance finish
+  while (state.running && state.slot) await sleep(100);
+  await sleep(500);
+  stopRace();
+}
+
+function stopRace() {
+  state.running = false; state.slot = null;
+  ui.setLive(false);
+  ui.setStatus("Idle — press “Start race”", false);
+  document.getElementById("startBtn").disabled = false;
+  document.getElementById("stopBtn").disabled = true;
+}
+
+/* ───────────────────────── UI wiring ─────────────────────────────────────── */
+const $ = id => document.getElementById(id);
+const ui = {
+  _calls: 0, _chunks: 0, _lineEl: null,
+  reset() {
+    $("feed").innerHTML = ""; $("log").innerHTML = "";
+    this._calls = 0; this._chunks = 0;
+    $("mCalls").textContent = "0"; $("mChunks").textContent = "0";
+    $("mTTFB").textContent = "—"; $("mTTFB").className = "v";
+    for (const k in lastCalled) delete lastCalled[k];
+    $("commentaryLine").innerHTML = '<span style="color:var(--muted)">Waiting for the first call…</span>';
+  },
+  setLive(on) {
+    $("feeddot").className = "dot" + (on ? " live" : "");
+    $("boothdot").className = "dot" + (on ? " live" : "");
+  },
+  renderEvent(ev) {
+    const el = document.createElement("div");
+    const hot = shouldCommentateProbe(ev);
+    el.className = "evt" + (ev.type === "tick" ? " tick" : "") + (hot ? " hot" : "");
+    const drivers = ev.drivers.map(d => `<span class="chip">${d}</span>`).join("");
+    el.innerHTML =
+      `<div class="etop"><span class="etype">${ev.type.replace(/_/g," ")}</span><span>t+${ev.session_time.toFixed(1)}s · L${ev.lap}</span></div>` +
+      `<div class="edetail">${ev.detail}</div>` +
+      `<div class="emeta">${drivers}${ev.priority ? `prio ${ev.priority}` : ""}</div>`;
+    const feed = $("feed"); feed.appendChild(el); feed.scrollTop = feed.scrollHeight;
+  },
+  beginLine() { this._lineEl = $("commentaryLine"); this._lineEl.innerHTML = '<span class="txt"></span><span class="cursor">&nbsp;</span>'; },
+  appendLine(delta) { const t = this._lineEl && this._lineEl.querySelector(".txt"); if (t) t.textContent += delta; },
+  endLine() { const c = this._lineEl && this._lineEl.querySelector(".cursor"); if (c) c.remove(); },
+  setStatus(text, spk) { $("statusText").textContent = text; },
+  speaking(on) { $("spk").className = "spk" + (on ? " on" : ""); if (on) $("statusText").textContent = "On air 🔊"; },
+  logChunk(chunk, audio) {
+    const el = document.createElement("div");
+    el.className = "l" + (audio ? " audio" : "");
+    el.innerHTML = `<span class="t">${audio ? "→ TTS" : "chunk"}</span><span>${chunk.trim()}</span>`;
+    const log = $("log"); log.appendChild(el); log.scrollTop = log.scrollHeight;
+  },
+  logError(msg) {
+    const el = document.createElement("div");
+    el.className = "l err"; el.innerHTML = `<span class="t">!</span><span>${msg}</span>`;
+    const log = $("log"); log.appendChild(el); log.scrollTop = log.scrollHeight;
+  },
+  note(msg) { $("audioNote").textContent = msg; },
+  bumpCalls() { this._calls++; $("mCalls").textContent = String(this._calls); },
+  bumpChunks() { this._chunks++; $("mChunks").textContent = String(this._chunks); },
+  setTTFB(ms) { const el = $("mTTFB"); el.textContent = Math.round(ms) + " ms"; el.className = "v" + (ms < 800 ? " good" : ""); },
+};
+
+/* Non-mutating probe so rendering can flag "hot" events without consuming the cooldown. */
+function shouldCommentateProbe(ev) {
+  if (!WORTHY.has(ev.type)) return false;
+  return ev.priority >= MIN_PRIORITY;
+}
+
+/* Controls */
+$("offset").addEventListener("input", e => { state.offsetSec = parseFloat(e.target.value); $("offsetVal").textContent = state.offsetSec.toFixed(1); });
+$("speed").addEventListener("change", e => { state.speed = parseFloat(e.target.value); });
+$("liveLLM").addEventListener("change", e => { state.liveLLM = e.target.checked; $("anthropicRow").style.display = e.target.checked ? "grid" : "none"; });
+
+$("startBtn").addEventListener("click", () => {
+  state.elKey = $("elKey").value.trim();
+  state.voiceId = $("voiceId").value.trim() || "JBFqnCBsd6RMkjVDRZzb";
+  state.anthropicKey = $("anKey").value.trim();
+  state.liveLLM = $("liveLLM").checked;
+  if (state.liveLLM && !state.anthropicKey) { alert("Live Claude is enabled but no Anthropic key was entered. Add one, or uncheck it to use scripted commentary."); return; }
+  ui.note(state.elKey ? "" : "No ElevenLabs key — running the silent visual demo (streaming + chunk dispatch, no audio).");
+  player.resume();  // must happen inside a user gesture
+  $("startBtn").disabled = true; $("stopBtn").disabled = false;
+  runRace();
+});
+$("stopBtn").addEventListener("click", stopRace);
+
+/* Best-effort link back to the repo (works once served from github.io). */
+(function setRepoLink() {
+  const host = location.hostname; // e.g. soniv33.github.io
+  const owner = host.endsWith(".github.io") ? host.split(".")[0] : null;
+  const repo = location.pathname.split("/").filter(Boolean)[0];
+  if (owner && repo) $("repolink").href = `https://github.com/${owner}/${repo}`;
+  else $("repolink").style.display = "none";
+})();
+</script>
+</body>
+</html>
