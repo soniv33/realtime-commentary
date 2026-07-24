@@ -1,0 +1,88 @@
+"""Centralised, environment-driven configuration.
+
+Every tunable that a pre-sales engineer might want to change during a demo lives
+here and can be overridden via environment variables or a local ``.env`` file.
+The ``broadcast_offset_seconds`` knob is intentionally surfaced at the top level:
+it is the "sync the audio to a TV feed" control called out in the requirements.
+"""
+
+from __future__ import annotations
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class SimulatorSettings(BaseSettings):
+    """Replay simulator (the fake 'live feed')."""
+
+    model_config = SettingsConfigDict(env_prefix="SIM_", env_file=".env", extra="ignore")
+
+    host: str = "127.0.0.1"
+    port: int = 8765
+    replay_file: str = "data/sample_session.jsonl"
+    # 1.0 = real time. >1 fast-forwards the replay; useful for short demos.
+    speed_multiplier: float = 1.0
+    # Cap on wait between events so long green-flag stretches don't stall a demo.
+    max_gap_seconds: float = 8.0
+    loop: bool = Field(False, description="Restart the replay when it ends.")
+
+    @property
+    def ws_url(self) -> str:
+        return f"ws://{self.host}:{self.port}"
+
+
+class LLMSettings(BaseSettings):
+    """Fast LLM commentator."""
+
+    model_config = SettingsConfigDict(env_prefix="LLM_", env_file=".env", extra="ignore")
+
+    # Haiku is Anthropic's speed/cost tier - the right pick for a punchy,
+    # one-sentence broadcast line with the lowest time-to-first-token.
+    model: str = "claude-haiku-4-5"
+    max_tokens: int = 90
+    # Kept tight: broadcast lines are one sentence. See prompts.py.
+
+
+class AudioSettings(BaseSettings):
+    """ElevenLabs streaming TTS + local playback."""
+
+    model_config = SettingsConfigDict(env_prefix="TTS_", env_file=".env", extra="ignore")
+
+    voice_id: str = "JBFqnCBsd6RMkjVDRZzb"  # ElevenLabs stock voice ("George").
+    model: str = "eleven_flash_v2_5"  # Flash = lowest-latency ElevenLabs model.
+    # PCM 16-bit mono at 16 kHz keeps the audio path simple and low-latency.
+    sample_rate: int = 16_000
+    # ElevenLabs input-streaming latency optimisation (0-4). 3 is a good demo default.
+    optimize_streaming_latency: int = 3
+    # Play through the speakers. Disable for headless CI / benchmarking runs.
+    enable_playback: bool = True
+
+
+class OrchestratorSettings(BaseSettings):
+    """The orchestration layer that wires the pipeline together."""
+
+    model_config = SettingsConfigDict(env_prefix="ORCH_", env_file=".env", extra="ignore")
+
+    # THE broadcast offset: artificially delay the *audio* so commentary lands in
+    # sync with a standard (delayed) TV feed. 0.0 = live.
+    broadcast_offset_seconds: float = 0.0
+    # Per-event-type cooldown so a flurry of overtakes doesn't spam the commentator.
+    cooldown_seconds: float = 4.0
+    # Drop any commentary request below this priority.
+    min_priority: int = 40
+
+
+class Settings(BaseSettings):
+    """Top-level aggregate. Import ``get_settings()`` everywhere else."""
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    simulator: SimulatorSettings = Field(default_factory=SimulatorSettings)
+    llm: LLMSettings = Field(default_factory=LLMSettings)
+    audio: AudioSettings = Field(default_factory=AudioSettings)
+    orchestrator: OrchestratorSettings = Field(default_factory=OrchestratorSettings)
+
+
+def get_settings() -> Settings:
+    """Build settings from the environment. Cheap enough to call at startup."""
+    return Settings()
