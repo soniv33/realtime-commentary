@@ -400,6 +400,15 @@ class PcmPlayer {
     src.start(this.next);
     this.next += buf.duration;
   }
+  // Resolve once every scheduled buffer has actually finished playing. Web Audio
+  // schedules into the future, so an utterance isn't "done" when the socket
+  // closes — it's done when the timeline catches up. Awaiting this before the
+  // next narration is what stops lines from talking over each other.
+  async drain() {
+    if (!this.ac || !this.started) return;
+    const remainingMs = Math.max(0, (this.next - this.ac.currentTime) * 1000);
+    await new Promise(r => setTimeout(r, remainingMs + 80));
+  }
 }
 const player = new PcmPlayer();
 
@@ -461,6 +470,7 @@ async function narrate(ev) {
   if (ws) {
     if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ text: "" }));  // EOS flush
     await closed;
+    await player.drain();  // wait for the scheduled audio to finish before the next line starts
   }
   ui.bumpCalls();
   ui.endLine();
