@@ -19,11 +19,16 @@ class SimulatorSettings(BaseSettings):
 
     host: str = "127.0.0.1"
     port: int = 8765
-    replay_file: str = "data/sample_session.jsonl"
-    # 1.0 = real time. >1 fast-forwards the replay; useful for short demos.
+    # A real race distilled from OpenF1 (2023 Dutch GP). See:
+    #   python -m f1_commentator.simulator.ingest --session-key 9149 --out data/dutch_gp_2023.jsonl
+    # data/sample_session.jsonl is a short synthetic feed kept for tests/offline.
+    replay_file: str = "data/dutch_gp_2023.jsonl"
+    # 1.0 = real time (events paced by their real session_time). >1 fast-forwards
+    # for a short demo (e.g. 10 replays a 2.5h race in ~15 min of active feed).
     speed_multiplier: float = 1.0
-    # Cap on wait between events so long green-flag stretches don't stall a demo.
-    max_gap_seconds: float = 8.0
+    # Cap on the wait between events so long green-flag / red-flag stretches don't
+    # stall the demo. Raise it (e.g. 100000) for strict, uncompressed real time.
+    max_gap_seconds: float = 20.0
     loop: bool = Field(False, description="Restart the replay when it ends.")
 
     @property

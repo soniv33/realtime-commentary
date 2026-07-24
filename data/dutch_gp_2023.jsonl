@@ -1,0 +1,270 @@
+# 2023 Zandvoort Race — distilled from OpenF1 (session_key=9149)
+{"type":"race_start","session_time":0.0,"priority":95,"lap":1,"drivers":["VER","NOR","RUS"],"location":null,"detail":"Lights out and the race is underway","payload":{}}
+{"type":"green_flag","session_time":185.0,"priority":84,"lap":1,"drivers":[],"location":null,"detail":"Green light - pit exit open","payload":{}}
+{"type":"overtake","session_time":204.051,"priority":66,"lap":null,"drivers":["PIA","GAS"],"location":"P10","detail":"PIA passes GAS for P10","payload":{"position":10}}
+{"type":"overtake","session_time":216.786,"priority":66,"lap":null,"drivers":["PIA","STR"],"location":"P9","detail":"PIA passes STR for P9","payload":{"position":9}}
+{"type":"overtake","session_time":220.582,"priority":66,"lap":null,"drivers":["STR","GAS"],"location":"P10","detail":"STR passes GAS for P10","payload":{"position":10}}
+{"type":"overtake","session_time":233.004,"priority":66,"lap":null,"drivers":["PIA","LEC"],"location":"P8","detail":"PIA passes LEC for P8","payload":{"position":8}}
+{"type":"overtake","session_time":236.941,"priority":74,"lap":null,"drivers":["ALB","SAI"],"location":"P5","detail":"ALB passes SAI for P5","payload":{"position":5}}
+{"type":"fastest_lap","session_time":277.301,"priority":60,"lap":1,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:31.968"}}
+{"type":"weather_change","session_time":286.878,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"Rain is starting to fall","payload":{"track_temp":28.6,"air_temp":17.5}}
+{"type":"pit_stop","session_time":306.44,"priority":62,"lap":1,"drivers":["PER"],"location":null,"detail":"PER pits — 22.6s in the lane","payload":{"pit_duration":22.6}}
+{"type":"pit_stop","session_time":312.596,"priority":62,"lap":1,"drivers":["ZHO"],"location":null,"detail":"ZHO pits — 23.0s in the lane","payload":{"pit_duration":23.0}}
+{"type":"pit_stop","session_time":316.565,"priority":62,"lap":1,"drivers":["GAS"],"location":null,"detail":"GAS pits — 28.4s in the lane","payload":{"pit_duration":28.4}}
+{"type":"pit_stop","session_time":319.518,"priority":62,"lap":1,"drivers":["LEC"],"location":null,"detail":"LEC pits — 32.6s in the lane","payload":{"pit_duration":32.6}}
+{"type":"pit_stop","session_time":323.252,"priority":62,"lap":1,"drivers":["TSU"],"location":null,"detail":"TSU pits — 32.3s in the lane","payload":{"pit_duration":32.3}}
+{"type":"pit_stop","session_time":327.44,"priority":62,"lap":1,"drivers":["MAG"],"location":null,"detail":"MAG pits — 31.3s in the lane","payload":{"pit_duration":31.3}}
+{"type":"pit_stop","session_time":336.987,"priority":62,"lap":1,"drivers":["LAW"],"location":null,"detail":"LAW pits — 42.6s in the lane","payload":{"pit_duration":42.6}}
+{"type":"overtake","session_time":388.048,"priority":74,"lap":null,"drivers":["ALB","ALO"],"location":"P4","detail":"ALB passes ALO for P4","payload":{"position":4}}
+{"type":"overtake","session_time":390.361,"priority":66,"lap":null,"drivers":["PER","OCO"],"location":"P11","detail":"PER passes OCO for P11","payload":{"position":11}}
+{"type":"overtake","session_time":398.72,"priority":66,"lap":null,"drivers":["HAM","OCO"],"location":"P12","detail":"HAM passes OCO for P12","payload":{"position":12}}
+{"type":"overtake","session_time":405.938,"priority":74,"lap":null,"drivers":["PER","BOT"],"location":"P6","detail":"PER passes BOT for P6","payload":{"position":6}}
+{"type":"pit_stop","session_time":405.985,"priority":62,"lap":2,"drivers":["VER"],"location":null,"detail":"VER pits — 20.3s in the lane","payload":{"pit_duration":20.3}}
+{"type":"pit_stop","session_time":407.579,"priority":62,"lap":2,"drivers":["ALO"],"location":null,"detail":"ALO pits — 20.6s in the lane","payload":{"pit_duration":20.6}}
+{"type":"overtake","session_time":408.782,"priority":74,"lap":null,"drivers":["PER","STR"],"location":"P5","detail":"PER passes STR for P5","payload":{"position":5}}
+{"type":"pit_stop","session_time":412.766,"priority":62,"lap":2,"drivers":["SAI"],"location":null,"detail":"SAI pits — 20.9s in the lane","payload":{"pit_duration":20.9}}
+{"type":"overtake","session_time":421.423,"priority":74,"lap":null,"drivers":["PER","PIA"],"location":"P4","detail":"PER passes PIA for P4","payload":{"position":4}}
+{"type":"pit_stop","session_time":422.688,"priority":62,"lap":2,"drivers":["OCO"],"location":null,"detail":"OCO pits — 22.5s in the lane","payload":{"pit_duration":22.5}}
+{"type":"overtake","session_time":431.172,"priority":66,"lap":null,"drivers":["GAS","HAM"],"location":"P10","detail":"GAS passes HAM for P10","payload":{"position":10}}
+{"type":"overtake","session_time":432.813,"priority":66,"lap":null,"drivers":["VER","SAR"],"location":"P12","detail":"VER passes SAR for P12","payload":{"position":12}}
+{"type":"overtake","session_time":436.547,"priority":66,"lap":null,"drivers":["VER","HAM"],"location":"P11","detail":"VER passes HAM for P11","payload":{"position":11}}
+{"type":"overtake","session_time":443.328,"priority":66,"lap":null,"drivers":["LEC","HAM"],"location":"P12","detail":"LEC passes HAM for P12","payload":{"position":12}}
+{"type":"overtake","session_time":444.625,"priority":66,"lap":null,"drivers":["GAS","HUL"],"location":"P9","detail":"GAS passes HUL for P9","payload":{"position":9}}
+{"type":"overtake","session_time":448.875,"priority":66,"lap":null,"drivers":["GAS","BOT"],"location":"P8","detail":"GAS passes BOT for P8","payload":{"position":8}}
+{"type":"overtake","session_time":459.969,"priority":66,"lap":null,"drivers":["LEC","HUL"],"location":"P11","detail":"LEC passes HUL for P11","payload":{"position":11}}
+{"type":"overtake","session_time":462.094,"priority":66,"lap":null,"drivers":["VER","STR"],"location":"P8","detail":"VER passes STR for P8","payload":{"position":8}}
+{"type":"overtake","session_time":463.812,"priority":66,"lap":null,"drivers":["LEC","BOT"],"location":"P10","detail":"LEC passes BOT for P10","payload":{"position":10}}
+{"type":"overtake","session_time":464.531,"priority":66,"lap":null,"drivers":["ALO","HUL"],"location":"P12","detail":"ALO passes HUL for P12","payload":{"position":12}}
+{"type":"overtake","session_time":469.219,"priority":66,"lap":null,"drivers":["LEC","STR"],"location":"P9","detail":"LEC passes STR for P9","payload":{"position":9}}
+{"type":"overtake","session_time":469.984,"priority":66,"lap":null,"drivers":["ALO","BOT"],"location":"P11","detail":"ALO passes BOT for P11","payload":{"position":11}}
+{"type":"overtake","session_time":473.609,"priority":66,"lap":null,"drivers":["ALO","STR"],"location":"P10","detail":"ALO passes STR for P10","payload":{"position":10}}
+{"type":"overtake","session_time":481.703,"priority":66,"lap":null,"drivers":["VER","PIA"],"location":"P7","detail":"VER passes PIA for P7","payload":{"position":7}}
+{"type":"overtake","session_time":482.015,"priority":66,"lap":null,"drivers":["TSU","BOT"],"location":"P12","detail":"TSU passes BOT for P12","payload":{"position":12}}
+{"type":"fastest_lap","session_time":482.508,"priority":60,"lap":3,"drivers":["PER"],"location":null,"detail":"PER sets the fastest lap of the race","payload":{"time":"1:27.522"}}
+{"type":"overtake","session_time":487.234,"priority":74,"lap":null,"drivers":["VER","ALB"],"location":"P6","detail":"VER passes ALB for P6","payload":{"position":6}}
+{"type":"overtake","session_time":489.609,"priority":66,"lap":null,"drivers":["ALO","PIA"],"location":"P9","detail":"ALO passes PIA for P9","payload":{"position":9}}
+{"type":"overtake","session_time":491.234,"priority":74,"lap":null,"drivers":["VER","NOR"],"location":"P5","detail":"VER passes NOR for P5","payload":{"position":5}}
+{"type":"overtake","session_time":493.656,"priority":66,"lap":null,"drivers":["SAI","STR"],"location":"P12","detail":"SAI passes STR for P12","payload":{"position":12}}
+{"type":"fastest_lap","session_time":512.959,"priority":60,"lap":3,"drivers":["LAW"],"location":null,"detail":"LAW sets the fastest lap of the race","payload":{"time":"1:26.818"}}
+{"type":"overtake","session_time":515.155,"priority":66,"lap":null,"drivers":["SAI","PIA"],"location":"P10","detail":"SAI passes PIA for P10","payload":{"position":10}}
+{"type":"overtake","session_time":517.733,"priority":74,"lap":null,"drivers":["VER","RUS"],"location":"P4","detail":"VER passes RUS for P4","payload":{"position":4}}
+{"type":"pit_stop","session_time":519.468,"priority":62,"lap":3,"drivers":["NOR"],"location":null,"detail":"NOR pits — 20.1s in the lane","payload":{"pit_duration":20.1}}
+{"type":"overtake","session_time":528.186,"priority":66,"lap":null,"drivers":["SAI","TSU"],"location":"P8","detail":"SAI passes TSU for P8","payload":{"position":8}}
+{"type":"pit_stop","session_time":536.514,"priority":62,"lap":3,"drivers":["HAM"],"location":null,"detail":"HAM pits — 20.2s in the lane","payload":{"pit_duration":20.2}}
+{"type":"fastest_lap","session_time":566.826,"priority":60,"lap":4,"drivers":["PER"],"location":null,"detail":"PER sets the fastest lap of the race","payload":{"time":"1:24.342"}}
+{"type":"pit_stop","session_time":622.356,"priority":62,"lap":4,"drivers":["RUS"],"location":null,"detail":"RUS pits — 21.2s in the lane","payload":{"pit_duration":21.2}}
+{"type":"overtake","session_time":629.981,"priority":66,"lap":null,"drivers":["NOR","ALB"],"location":"P12","detail":"NOR passes ALB for P12","payload":{"position":12}}
+{"type":"pit_stop","session_time":637.481,"priority":62,"lap":4,"drivers":["STR"],"location":null,"detail":"STR pits — 20.0s in the lane","payload":{"pit_duration":20.0}}
+{"type":"fastest_lap","session_time":650.989,"priority":60,"lap":5,"drivers":["PER"],"location":null,"detail":"PER sets the fastest lap of the race","payload":{"time":"1:24.100"}}
+{"type":"fastest_lap","session_time":662.881,"priority":60,"lap":5,"drivers":["ZHO"],"location":null,"detail":"ZHO sets the fastest lap of the race","payload":{"time":"1:23.977"}}
+{"type":"fastest_lap","session_time":664.285,"priority":60,"lap":5,"drivers":["GAS"],"location":null,"detail":"GAS sets the fastest lap of the race","payload":{"time":"1:23.834"}}
+{"type":"fastest_lap","session_time":664.568,"priority":60,"lap":5,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:23.461"}}
+{"type":"fastest_lap","session_time":682.065,"priority":60,"lap":5,"drivers":["OCO"],"location":null,"detail":"OCO sets the fastest lap of the race","payload":{"time":"1:23.380"}}
+{"type":"overtake","session_time":685.121,"priority":82,"lap":null,"drivers":["VER","GAS"],"location":"P3","detail":"VER passes GAS for P3","payload":{"position":3}}
+{"type":"weather_change","session_time":706.933,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"The rain has stopped — track is drying","payload":{"track_temp":24.6,"air_temp":16.2}}
+{"type":"overtake","session_time":721.339,"priority":74,"lap":null,"drivers":["ALO","LEC"],"location":"P5","detail":"ALO passes LEC for P5","payload":{"position":5}}
+{"type":"fastest_lap","session_time":747.14,"priority":60,"lap":6,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:22.503"}}
+{"type":"overtake","session_time":762.651,"priority":82,"lap":null,"drivers":["VER","ZHO"],"location":"P2","detail":"VER passes ZHO for P2","payload":{"position":2}}
+{"type":"fastest_lap","session_time":774.571,"priority":60,"lap":6,"drivers":["NOR"],"location":null,"detail":"NOR sets the fastest lap of the race","payload":{"time":"1:22.403"}}
+{"type":"fastest_lap","session_time":829.22,"priority":60,"lap":7,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:22.116"}}
+{"type":"overtake","session_time":935.21,"priority":74,"lap":null,"drivers":["SAI","LEC"],"location":"P6","detail":"SAI passes LEC for P6","payload":{"position":6}}
+{"type":"overtake","session_time":952.835,"priority":66,"lap":null,"drivers":["NOR","LAW"],"location":"P11","detail":"NOR passes LAW for P11","payload":{"position":11}}
+{"type":"overtake","session_time":1019.318,"priority":66,"lap":null,"drivers":["OCO","MAG"],"location":"P9","detail":"OCO passes MAG for P9","payload":{"position":9}}
+{"type":"overtake","session_time":1029.49,"priority":66,"lap":null,"drivers":["NOR","MAG"],"location":"P10","detail":"NOR passes MAG for P10","payload":{"position":10}}
+{"type":"pit_stop","session_time":1040.068,"priority":62,"lap":9,"drivers":["MAG"],"location":null,"detail":"MAG pits — 20.1s in the lane","payload":{"pit_duration":20.1}}
+{"type":"fastest_lap","session_time":1051.399,"priority":60,"lap":9,"drivers":["ALB"],"location":null,"detail":"ALB sets the fastest lap of the race","payload":{"time":"1:19.783"}}
+{"type":"fastest_lap","session_time":1052.786,"priority":60,"lap":9,"drivers":["PIA"],"location":null,"detail":"PIA sets the fastest lap of the race","payload":{"time":"1:19.061"}}
+{"type":"pit_stop","session_time":1067.286,"priority":62,"lap":9,"drivers":["HAM"],"location":null,"detail":"HAM pits — 19.9s in the lane","payload":{"pit_duration":19.9}}
+{"type":"pit_stop","session_time":1085.598,"priority":62,"lap":9,"drivers":["STR"],"location":null,"detail":"STR pits — 20.2s in the lane","payload":{"pit_duration":20.2}}
+{"type":"overtake","session_time":1087.645,"priority":82,"lap":null,"drivers":["GAS","ZHO"],"location":"P3","detail":"GAS passes ZHO for P3","payload":{"position":3}}
+{"type":"pit_stop","session_time":1109.723,"priority":62,"lap":10,"drivers":["ZHO"],"location":null,"detail":"ZHO pits — 20.2s in the lane","payload":{"pit_duration":20.2}}
+{"type":"pit_stop","session_time":1111.192,"priority":62,"lap":10,"drivers":["ALO"],"location":null,"detail":"ALO pits — 20.1s in the lane","payload":{"pit_duration":20.1}}
+{"type":"pit_stop","session_time":1116.504,"priority":62,"lap":10,"drivers":["SAI"],"location":null,"detail":"SAI pits — 19.5s in the lane","payload":{"pit_duration":19.5}}
+{"type":"pit_stop","session_time":1124.129,"priority":62,"lap":10,"drivers":["TSU"],"location":null,"detail":"TSU pits — 18.9s in the lane","payload":{"pit_duration":18.9}}
+{"type":"pit_stop","session_time":1127.066,"priority":62,"lap":10,"drivers":["OCO"],"location":null,"detail":"OCO pits — 19.7s in the lane","payload":{"pit_duration":19.7}}
+{"type":"fastest_lap","session_time":1131.373,"priority":60,"lap":10,"drivers":["PIA"],"location":null,"detail":"PIA sets the fastest lap of the race","payload":{"time":"1:18.587"}}
+{"type":"overtake","session_time":1132.254,"priority":74,"lap":null,"drivers":["ALO","ZHO"],"location":"P5","detail":"ALO passes ZHO for P5","payload":{"position":5}}
+{"type":"pit_stop","session_time":1134.488,"priority":62,"lap":10,"drivers":["NOR"],"location":null,"detail":"NOR pits — 20.3s in the lane","payload":{"pit_duration":20.3}}
+{"type":"pit_stop","session_time":1149.253,"priority":62,"lap":10,"drivers":["LAW"],"location":null,"detail":"LAW pits — 30.8s in the lane","payload":{"pit_duration":30.8}}
+{"type":"pit_stop","session_time":1156.41,"priority":62,"lap":10,"drivers":["RUS"],"location":null,"detail":"RUS pits — 20.1s in the lane","payload":{"pit_duration":20.1}}
+{"type":"pit_stop","session_time":1184.19,"priority":62,"lap":11,"drivers":["VER"],"location":null,"detail":"VER pits — 19.2s in the lane","payload":{"pit_duration":19.2}}
+{"type":"pit_stop","session_time":1194.034,"priority":62,"lap":11,"drivers":["GAS"],"location":null,"detail":"GAS pits — 19.5s in the lane","payload":{"pit_duration":19.5}}
+{"type":"overtake","session_time":1194.971,"priority":74,"lap":null,"drivers":["ALO","LEC"],"location":"P4","detail":"ALO passes LEC for P4","payload":{"position":4}}
+{"type":"overtake","session_time":1199.628,"priority":74,"lap":null,"drivers":["SAI","LEC"],"location":"P6","detail":"SAI passes LEC for P6","payload":{"position":6}}
+{"type":"overtake","session_time":1202.159,"priority":82,"lap":null,"drivers":["ALO","GAS"],"location":"P3","detail":"ALO passes GAS for P3","payload":{"position":3}}
+{"type":"fastest_lap","session_time":1208.139,"priority":60,"lap":11,"drivers":["PIA"],"location":null,"detail":"PIA sets the fastest lap of the race","payload":{"time":"1:16.870"}}
+{"type":"pit_stop","session_time":1214.346,"priority":62,"lap":11,"drivers":["LEC"],"location":null,"detail":"LEC pits — 27.2s in the lane","payload":{"pit_duration":27.2}}
+{"type":"overtake","session_time":1223.096,"priority":66,"lap":null,"drivers":["NOR","LEC"],"location":"P12","detail":"NOR passes LEC for P12","payload":{"position":12}}
+{"type":"pit_stop","session_time":1266.845,"priority":62,"lap":12,"drivers":["PER"],"location":null,"detail":"PER pits — 19.4s in the lane","payload":{"pit_duration":19.4}}
+{"type":"overtake","session_time":1275.407,"priority":74,"lap":null,"drivers":["SAI","ZHO"],"location":"P5","detail":"SAI passes ZHO for P5","payload":{"position":5}}
+{"type":"overtake","session_time":1285.22,"priority":66,"lap":null,"drivers":["PIA","TSU"],"location":"P8","detail":"PIA passes TSU for P8","payload":{"position":8}}
+{"type":"fastest_lap","session_time":1290.531,"priority":60,"lap":12,"drivers":["NOR"],"location":null,"detail":"NOR sets the fastest lap of the race","payload":{"time":"1:16.654"}}
+{"type":"weather_change","session_time":1307.016,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"Rain is starting to fall","payload":{"track_temp":24.6,"air_temp":16.5}}
+{"type":"fastest_lap","session_time":1351.911,"priority":60,"lap":13,"drivers":["SAI"],"location":null,"detail":"SAI sets the fastest lap of the race","payload":{"time":"1:16.472"}}
+{"type":"overtake","session_time":1365.343,"priority":66,"lap":null,"drivers":["OCO","TSU"],"location":"P9","detail":"OCO passes TSU for P9","payload":{"position":9}}
+{"type":"fastest_lap","session_time":1366.67,"priority":60,"lap":13,"drivers":["NOR"],"location":null,"detail":"NOR sets the fastest lap of the race","payload":{"time":"1:16.200"}}
+{"type":"overtake","session_time":1430.78,"priority":74,"lap":null,"drivers":["SAI","GAS"],"location":"P4","detail":"SAI passes GAS for P4","payload":{"position":4}}
+{"type":"fastest_lap","session_time":1437.947,"priority":60,"lap":14,"drivers":["PIA"],"location":null,"detail":"PIA sets the fastest lap of the race","payload":{"time":"1:16.041"}}
+{"type":"overtake","session_time":1439.951,"priority":66,"lap":null,"drivers":["PIA","MAG"],"location":"P7","detail":"PIA passes MAG for P7","payload":{"position":7}}
+{"type":"overtake","session_time":1449.779,"priority":66,"lap":null,"drivers":["OCO","TSU"],"location":"P9","detail":"OCO passes TSU for P9","payload":{"position":9}}
+{"type":"overtake","session_time":1450.139,"priority":66,"lap":null,"drivers":["ALB","TSU"],"location":"P10","detail":"ALB passes TSU for P10","payload":{"position":10}}
+{"type":"overtake","session_time":1518.528,"priority":66,"lap":null,"drivers":["NOR","TSU"],"location":"P11","detail":"NOR passes TSU for P11","payload":{"position":11}}
+{"type":"overtake","session_time":1518.528,"priority":66,"lap":null,"drivers":["ALB","PIA"],"location":"P9","detail":"ALB passes PIA for P9","payload":{"position":9}}
+{"type":"overtake","session_time":1519.762,"priority":66,"lap":null,"drivers":["NOR","PIA"],"location":"P11","detail":"NOR passes PIA for P11","payload":{"position":11}}
+{"type":"overtake","session_time":1520.669,"priority":66,"lap":null,"drivers":["ALB","OCO"],"location":"P8","detail":"ALB passes OCO for P8","payload":{"position":8}}
+{"type":"yellow_flag","session_time":1525.0,"priority":78,"lap":16,"drivers":[],"location":"sector 10","detail":"Yellow in track sector 10","payload":{}}
+{"type":"fastest_lap","session_time":1535.575,"priority":60,"lap":15,"drivers":["HAM"],"location":null,"detail":"HAM sets the fastest lap of the race","payload":{"time":"1:15.905"}}
+{"type":"pit_stop","session_time":1537.934,"priority":62,"lap":15,"drivers":["PIA"],"location":null,"detail":"PIA pits — 18.9s in the lane","payload":{"pit_duration":18.9}}
+{"type":"double_yellow","session_time":1541.0,"priority":90,"lap":16,"drivers":[],"location":"sector 10","detail":"Double yellow in track sector 10","payload":{}}
+{"type":"yellow_flag","session_time":1543.0,"priority":78,"lap":16,"drivers":[],"location":"sector 9","detail":"Yellow in track sector 9","payload":{}}
+{"type":"safety_car","session_time":1564.0,"priority":92,"lap":16,"drivers":[],"location":null,"detail":"Safety car deployed","payload":{}}
+{"type":"pit_stop","session_time":1649.916,"priority":62,"lap":16,"drivers":["BOT"],"location":null,"detail":"BOT pits — 20.1s in the lane","payload":{"pit_duration":20.1}}
+{"type":"pit_stop","session_time":1651.229,"priority":62,"lap":16,"drivers":["HUL"],"location":null,"detail":"HUL pits — 20.4s in the lane","payload":{"pit_duration":20.4}}
+{"type":"pit_stop","session_time":1671.057,"priority":62,"lap":16,"drivers":["RUS"],"location":null,"detail":"RUS pits — 19.6s in the lane","payload":{"pit_duration":19.6}}
+{"type":"pit_stop","session_time":1693.65,"priority":62,"lap":16,"drivers":["STR"],"location":null,"detail":"STR pits — 19.6s in the lane","payload":{"pit_duration":19.6}}
+{"type":"pit_stop","session_time":1782.539,"priority":62,"lap":17,"drivers":["LAW"],"location":null,"detail":"LAW pits — 19.6s in the lane","payload":{"pit_duration":19.6}}
+{"type":"weather_change","session_time":1787.055,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"The rain has stopped — track is drying","payload":{"track_temp":26.9,"air_temp":17.1}}
+{"type":"overtake","session_time":2288.764,"priority":66,"lap":null,"drivers":["ALB","MAG"],"location":"P7","detail":"ALB passes MAG for P7","payload":{"position":7}}
+{"type":"weather_change","session_time":2327.123,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"Rain is starting to fall","payload":{"track_temp":29.7,"air_temp":17.3}}
+{"type":"overtake","session_time":2367.138,"priority":66,"lap":null,"drivers":["OCO","MAG"],"location":"P8","detail":"OCO passes MAG for P8","payload":{"position":8}}
+{"type":"fastest_lap","session_time":2426.203,"priority":60,"lap":24,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.783"}}
+{"type":"overtake","session_time":2435.809,"priority":74,"lap":null,"drivers":["ALB","ZHO"],"location":"P6","detail":"ALB passes ZHO for P6","payload":{"position":6}}
+{"type":"fastest_lap","session_time":2501.785,"priority":60,"lap":25,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.664"}}
+{"type":"fastest_lap","session_time":2577.482,"priority":60,"lap":26,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.659"}}
+{"type":"overtake","session_time":2599.306,"priority":66,"lap":null,"drivers":["TSU","MAG"],"location":"P9","detail":"TSU passes MAG for P9","payload":{"position":9}}
+{"type":"overtake","session_time":2677.008,"priority":66,"lap":null,"drivers":["NOR","MAG"],"location":"P10","detail":"NOR passes MAG for P10","payload":{"position":10}}
+{"type":"fastest_lap","session_time":2728.663,"priority":60,"lap":28,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.499"}}
+{"type":"overtake","session_time":2746.225,"priority":66,"lap":null,"drivers":["HAM","MAG"],"location":"P11","detail":"HAM passes MAG for P11","payload":{"position":11}}
+{"type":"fastest_lap","session_time":2804.068,"priority":60,"lap":29,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.374"}}
+{"type":"overtake","session_time":2833.333,"priority":66,"lap":null,"drivers":["PIA","MAG"],"location":"P12","detail":"PIA passes MAG for P12","payload":{"position":12}}
+{"type":"overtake","session_time":2983.971,"priority":66,"lap":null,"drivers":["NOR","ZHO"],"location":"P9","detail":"NOR passes ZHO for P9","payload":{"position":9}}
+{"type":"overtake","session_time":3055.016,"priority":66,"lap":null,"drivers":["HAM","ZHO"],"location":"P10","detail":"HAM passes ZHO for P10","payload":{"position":10}}
+{"type":"fastest_lap","session_time":3105.906,"priority":60,"lap":33,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.342"}}
+{"type":"overtake","session_time":3133.015,"priority":66,"lap":null,"drivers":["PIA","ZHO"],"location":"P11","detail":"PIA passes ZHO for P11","payload":{"position":11}}
+{"type":"fastest_lap","session_time":3181.163,"priority":60,"lap":34,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.272"}}
+{"type":"pit_stop","session_time":3238.873,"priority":62,"lap":34,"drivers":["STR"],"location":null,"detail":"STR pits — 19.9s in the lane","payload":{"pit_duration":19.9}}
+{"type":"pit_stop","session_time":3309.153,"priority":62,"lap":35,"drivers":["MAG"],"location":null,"detail":"MAG pits — 20.5s in the lane","payload":{"pit_duration":20.5}}
+{"type":"fastest_lap","session_time":3331.656,"priority":60,"lap":36,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.221"}}
+{"type":"fastest_lap","session_time":3406.835,"priority":60,"lap":37,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.167"}}
+{"type":"overtake","session_time":3444.931,"priority":66,"lap":null,"drivers":["HUL","ZHO"],"location":"P12","detail":"HUL passes ZHO for P12","payload":{"position":12}}
+{"type":"pit_stop","session_time":3460.728,"priority":62,"lap":37,"drivers":["ZHO"],"location":null,"detail":"ZHO pits — 20.4s in the lane","payload":{"pit_duration":20.4}}
+{"type":"fastest_lap","session_time":3481.894,"priority":60,"lap":38,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:15.071"}}
+{"type":"overtake","session_time":3728.754,"priority":66,"lap":null,"drivers":["RUS","HUL"],"location":"P12","detail":"RUS passes HUL for P12","payload":{"position":12}}
+{"type":"overtake","session_time":3733.239,"priority":74,"lap":null,"drivers":["ALB","SAI"],"location":"P5","detail":"ALB passes SAI for P5","payload":{"position":5}}
+{"type":"pit_stop","session_time":3747.004,"priority":62,"lap":41,"drivers":["SAI"],"location":null,"detail":"SAI pits — 19.3s in the lane","payload":{"pit_duration":19.3}}
+{"type":"pit_stop","session_time":3836.94,"priority":62,"lap":42,"drivers":["NOR"],"location":null,"detail":"NOR pits — 18.8s in the lane","payload":{"pit_duration":18.8}}
+{"type":"overtake","session_time":3894.736,"priority":66,"lap":null,"drivers":["HAM","OCO"],"location":"P7","detail":"HAM passes OCO for P7","payload":{"position":7}}
+{"type":"overtake","session_time":3896.767,"priority":66,"lap":null,"drivers":["PIA","OCO"],"location":"P8","detail":"PIA passes OCO for P8","payload":{"position":8}}
+{"type":"fastest_lap","session_time":3897.743,"priority":60,"lap":43,"drivers":["SAI"],"location":null,"detail":"SAI sets the fastest lap of the race","payload":{"time":"1:14.975"}}
+{"type":"overtake","session_time":3899.845,"priority":66,"lap":null,"drivers":["SAI","OCO"],"location":"P9","detail":"SAI passes OCO for P9","payload":{"position":9}}
+{"type":"pit_stop","session_time":3909.704,"priority":62,"lap":43,"drivers":["OCO"],"location":null,"detail":"OCO pits — 19.0s in the lane","payload":{"pit_duration":19.0}}
+{"type":"fastest_lap","session_time":3972.635,"priority":60,"lap":44,"drivers":["SAI"],"location":null,"detail":"SAI sets the fastest lap of the race","payload":{"time":"1:14.962"}}
+{"type":"pit_stop","session_time":3981.547,"priority":62,"lap":44,"drivers":["ALB"],"location":null,"detail":"ALB pits — 19.6s in the lane","payload":{"pit_duration":19.6}}
+{"type":"fastest_lap","session_time":3986.625,"priority":60,"lap":44,"drivers":["NOR"],"location":null,"detail":"NOR sets the fastest lap of the race","payload":{"time":"1:14.905"}}
+{"type":"overtake","session_time":3987.406,"priority":66,"lap":null,"drivers":["OCO","BOT"],"location":"P12","detail":"OCO passes BOT for P12","payload":{"position":12}}
+{"type":"overtake","session_time":4024.327,"priority":82,"lap":null,"drivers":["ALO","PER"],"location":"P2","detail":"ALO passes PER for P2","payload":{"position":2}}
+{"type":"pit_stop","session_time":4037.874,"priority":62,"lap":45,"drivers":["PER"],"location":null,"detail":"PER pits — 18.7s in the lane","payload":{"pit_duration":18.7}}
+{"type":"overtake","session_time":4047.327,"priority":74,"lap":null,"drivers":["PIA","HAM"],"location":"P6","detail":"PIA passes HAM for P6","payload":{"position":6}}
+{"type":"overtake","session_time":4047.733,"priority":66,"lap":null,"drivers":["SAI","HAM"],"location":"P7","detail":"SAI passes HAM for P7","payload":{"position":7}}
+{"type":"overtake","session_time":4054.874,"priority":66,"lap":null,"drivers":["RUS","HAM"],"location":"P8","detail":"RUS passes HAM for P8","payload":{"position":8}}
+{"type":"overtake","session_time":4056.639,"priority":74,"lap":null,"drivers":["SAI","PIA"],"location":"P6","detail":"SAI passes PIA for P6","payload":{"position":6}}
+{"type":"pit_stop","session_time":4066.827,"priority":62,"lap":45,"drivers":["HAM"],"location":null,"detail":"HAM pits — 19.3s in the lane","payload":{"pit_duration":19.3}}
+{"type":"overtake","session_time":4115.982,"priority":82,"lap":null,"drivers":["PER","GAS"],"location":"P3","detail":"PER passes GAS for P3","payload":{"position":3}}
+{"type":"pit_stop","session_time":4127.607,"priority":62,"lap":46,"drivers":["GAS"],"location":null,"detail":"GAS pits — 25.4s in the lane","payload":{"pit_duration":25.4}}
+{"type":"overtake","session_time":4127.935,"priority":66,"lap":null,"drivers":["RUS","PIA"],"location":"P7","detail":"RUS passes PIA for P7","payload":{"position":7}}
+{"type":"overtake","session_time":4135.341,"priority":66,"lap":null,"drivers":["ALB","PIA"],"location":"P8","detail":"ALB passes PIA for P8","payload":{"position":8}}
+{"type":"pit_stop","session_time":4145.747,"priority":62,"lap":46,"drivers":["PIA"],"location":null,"detail":"PIA pits — 19.1s in the lane","payload":{"pit_duration":19.1}}
+{"type":"pit_stop","session_time":4168.965,"priority":62,"lap":46,"drivers":["LAW"],"location":null,"detail":"LAW pits — 19.1s in the lane","payload":{"pit_duration":19.1}}
+{"type":"fastest_lap","session_time":4188.191,"priority":60,"lap":47,"drivers":["PER"],"location":null,"detail":"PER sets the fastest lap of the race","payload":{"time":"1:14.318"}}
+{"type":"overtake","session_time":4200.621,"priority":74,"lap":null,"drivers":["SAI","TSU"],"location":"P4","detail":"SAI passes TSU for P4","payload":{"position":4}}
+{"type":"overtake","session_time":4216.355,"priority":66,"lap":null,"drivers":["HAM","BOT"],"location":"P12","detail":"HAM passes BOT for P12","payload":{"position":12}}
+{"type":"overtake","session_time":4221.886,"priority":66,"lap":null,"drivers":["NOR","HUL"],"location":"P10","detail":"NOR passes HUL for P10","payload":{"position":10}}
+{"type":"pit_stop","session_time":4238.23,"priority":62,"lap":47,"drivers":["BOT"],"location":null,"detail":"BOT pits — 20.2s in the lane","payload":{"pit_duration":20.2}}
+{"type":"pit_stop","session_time":4276.807,"priority":62,"lap":48,"drivers":["ALO"],"location":null,"detail":"ALO pits — 25.1s in the lane","payload":{"pit_duration":25.1}}
+{"type":"overtake","session_time":4291.119,"priority":66,"lap":null,"drivers":["HAM","HUL"],"location":"P11","detail":"HAM passes HUL for P11","payload":{"position":11}}
+{"type":"overtake","session_time":4298.651,"priority":66,"lap":null,"drivers":["PIA","HUL"],"location":"P12","detail":"PIA passes HUL for P12","payload":{"position":12}}
+{"type":"pit_stop","session_time":4311.9,"priority":62,"lap":48,"drivers":["HUL"],"location":null,"detail":"HUL pits — 19.7s in the lane","payload":{"pit_duration":19.7}}
+{"type":"overtake","session_time":4328.838,"priority":74,"lap":null,"drivers":["ALO","TSU"],"location":"P4","detail":"ALO passes TSU for P4","payload":{"position":4}}
+{"type":"pit_stop","session_time":4331.416,"priority":62,"lap":49,"drivers":["VER"],"location":null,"detail":"VER pits — 18.7s in the lane","payload":{"pit_duration":18.7}}
+{"type":"overtake","session_time":4400.539,"priority":74,"lap":null,"drivers":["GAS","TSU"],"location":"P5","detail":"GAS passes TSU for P5","payload":{"position":5}}
+{"type":"fastest_lap","session_time":4425.943,"priority":60,"lap":50,"drivers":["ALO"],"location":null,"detail":"ALO sets the fastest lap of the race","payload":{"time":"1:14.153"}}
+{"type":"fastest_lap","session_time":4480.355,"priority":60,"lap":51,"drivers":["VER"],"location":null,"detail":"VER sets the fastest lap of the race","payload":{"time":"1:13.941"}}
+{"type":"overtake","session_time":4508.975,"priority":82,"lap":null,"drivers":["ALO","SAI"],"location":"P3","detail":"ALO passes SAI for P3","payload":{"position":3}}
+{"type":"overtake","session_time":4515.694,"priority":74,"lap":null,"drivers":["RUS","TSU"],"location":"P6","detail":"RUS passes TSU for P6","payload":{"position":6}}
+{"type":"overtake","session_time":4555.818,"priority":66,"lap":null,"drivers":["ALB","TSU"],"location":"P7","detail":"ALB passes TSU for P7","payload":{"position":7}}
+{"type":"overtake","session_time":4662.55,"priority":66,"lap":null,"drivers":["OCO","TSU"],"location":"P8","detail":"OCO passes TSU for P8","payload":{"position":8}}
+{"type":"overtake","session_time":4741.986,"priority":66,"lap":null,"drivers":["NOR","TSU"],"location":"P9","detail":"NOR passes TSU for P9","payload":{"position":9}}
+{"type":"overtake","session_time":4749.455,"priority":66,"lap":null,"drivers":["HAM","TSU"],"location":"P10","detail":"HAM passes TSU for P10","payload":{"position":10}}
+{"type":"fastest_lap","session_time":4797.708,"priority":60,"lap":55,"drivers":["ALO"],"location":null,"detail":"ALO sets the fastest lap of the race","payload":{"time":"1:13.862"}}
+{"type":"overtake","session_time":4817.891,"priority":66,"lap":null,"drivers":["PIA","TSU"],"location":"P11","detail":"PIA passes TSU for P11","payload":{"position":11}}
+{"type":"fastest_lap","session_time":4871.447,"priority":60,"lap":56,"drivers":["ALO"],"location":null,"detail":"ALO sets the fastest lap of the race","payload":{"time":"1:13.837"}}
+{"type":"overtake","session_time":4965.279,"priority":66,"lap":null,"drivers":["HAM","OCO"],"location":"P8","detail":"HAM passes OCO for P8","payload":{"position":8}}
+{"type":"pit_stop","session_time":5165.432,"priority":62,"lap":59,"drivers":["BOT"],"location":null,"detail":"BOT pits — 19.7s in the lane","payload":{"pit_duration":19.7}}
+{"type":"pit_stop","session_time":5168.76,"priority":62,"lap":59,"drivers":["LAW"],"location":null,"detail":"LAW pits — 19.3s in the lane","payload":{"pit_duration":19.3}}
+{"type":"overtake","session_time":5170.526,"priority":82,"lap":null,"drivers":["ALO","PER"],"location":"P2","detail":"ALO passes PER for P2","payload":{"position":2}}
+{"type":"pit_stop","session_time":5188.65,"priority":62,"lap":60,"drivers":["PER"],"location":null,"detail":"PER pits — 27.5s in the lane","payload":{"pit_duration":27.5}}
+{"type":"pit_stop","session_time":5202.119,"priority":62,"lap":60,"drivers":["GAS"],"location":null,"detail":"GAS pits — 20.4s in the lane","payload":{"pit_duration":20.4}}
+{"type":"pit_stop","session_time":5203.384,"priority":62,"lap":60,"drivers":["SAI"],"location":null,"detail":"SAI pits — 19.8s in the lane","payload":{"pit_duration":19.8}}
+{"type":"pit_stop","session_time":5211.822,"priority":62,"lap":60,"drivers":["HAM"],"location":null,"detail":"HAM pits — 20.7s in the lane","payload":{"pit_duration":20.7}}
+{"type":"pit_stop","session_time":5215.759,"priority":62,"lap":60,"drivers":["NOR"],"location":null,"detail":"NOR pits — 19.8s in the lane","payload":{"pit_duration":19.8}}
+{"type":"pit_stop","session_time":5218.603,"priority":62,"lap":60,"drivers":["RUS"],"location":null,"detail":"RUS pits — 24.0s in the lane","payload":{"pit_duration":24.0}}
+{"type":"pit_stop","session_time":5223.572,"priority":62,"lap":60,"drivers":["PIA"],"location":null,"detail":"PIA pits — 22.3s in the lane","payload":{"pit_duration":22.3}}
+{"type":"pit_stop","session_time":5231.837,"priority":62,"lap":60,"drivers":["TSU"],"location":null,"detail":"TSU pits — 20.6s in the lane","payload":{"pit_duration":20.6}}
+{"type":"pit_stop","session_time":5235.899,"priority":62,"lap":60,"drivers":["ZHO"],"location":null,"detail":"ZHO pits — 21.4s in the lane","payload":{"pit_duration":21.4}}
+{"type":"pit_stop","session_time":5240.165,"priority":62,"lap":60,"drivers":["STR"],"location":null,"detail":"STR pits — 21.5s in the lane","payload":{"pit_duration":21.5}}
+{"type":"pit_stop","session_time":5242.821,"priority":62,"lap":60,"drivers":["HUL"],"location":null,"detail":"HUL pits — 23.5s in the lane","payload":{"pit_duration":23.5}}
+{"type":"pit_stop","session_time":5250.852,"priority":62,"lap":61,"drivers":["VER"],"location":null,"detail":"VER pits — 19.4s in the lane","payload":{"pit_duration":19.4}}
+{"type":"pit_stop","session_time":5253.274,"priority":62,"lap":60,"drivers":["MAG"],"location":null,"detail":"MAG pits — 23.5s in the lane","payload":{"pit_duration":23.5}}
+{"type":"pit_stop","session_time":5276.493,"priority":62,"lap":61,"drivers":["ALO"],"location":null,"detail":"ALO pits — 20.6s in the lane","payload":{"pit_duration":20.6}}
+{"type":"overtake","session_time":5283.946,"priority":74,"lap":null,"drivers":["GAS","OCO"],"location":"P5","detail":"GAS passes OCO for P5","payload":{"position":5}}
+{"type":"pit_stop","session_time":5298.914,"priority":62,"lap":61,"drivers":["ALB"],"location":null,"detail":"ALB pits — 21.3s in the lane","payload":{"pit_duration":21.3}}
+{"type":"pit_stop","session_time":5305.758,"priority":62,"lap":61,"drivers":["OCO"],"location":null,"detail":"OCO pits — 22.0s in the lane","payload":{"pit_duration":22.0}}
+{"type":"overtake","session_time":5308.179,"priority":66,"lap":null,"drivers":["NOR","ALB"],"location":"P7","detail":"NOR passes ALB for P7","payload":{"position":7}}
+{"type":"overtake","session_time":5316.273,"priority":66,"lap":null,"drivers":["PIA","OCO"],"location":"P10","detail":"PIA passes OCO for P10","payload":{"position":10}}
+{"type":"overtake","session_time":5325.664,"priority":66,"lap":null,"drivers":["RUS","ALB"],"location":"P8","detail":"RUS passes ALB for P8","payload":{"position":8}}
+{"type":"weather_change","session_time":5327.288,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"Rain is starting to fall","payload":{"track_temp":24.6,"air_temp":17.1}}
+{"type":"yellow_flag","session_time":5363.0,"priority":78,"lap":63,"drivers":[],"location":"sector 2","detail":"Yellow in track sector 2","payload":{}}
+{"type":"overtake","session_time":5373.178,"priority":82,"lap":null,"drivers":["ALO","PER"],"location":"P2","detail":"ALO passes PER for P2","payload":{"position":2}}
+{"type":"yellow_flag","session_time":5411.0,"priority":78,"lap":63,"drivers":[],"location":"sector 2","detail":"Yellow in track sector 2","payload":{}}
+{"type":"double_yellow","session_time":5421.0,"priority":90,"lap":63,"drivers":[],"location":"sector 2","detail":"Double yellow in track sector 2","payload":{}}
+{"type":"virtual_safety_car","session_time":5429.0,"priority":85,"lap":64,"drivers":[],"location":null,"detail":"Virtual safety car deployed","payload":{}}
+{"type":"pit_stop","session_time":5447.349,"priority":62,"lap":63,"drivers":["VER"],"location":null,"detail":"VER pits — 20.4s in the lane","payload":{"pit_duration":20.4}}
+{"type":"overtake","session_time":5472.786,"priority":74,"lap":null,"drivers":["SAI","PER"],"location":"P4","detail":"SAI passes PER for P4","payload":{"position":4}}
+{"type":"red_flag","session_time":5476.0,"priority":96,"lap":64,"drivers":[],"location":null,"detail":"Red flag","payload":{}}
+{"type":"weather_change","session_time":6947.353,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"The rain has stopped — track is drying","payload":{"track_temp":20.8,"air_temp":14.9}}
+{"type":"pit_stop","session_time":7926.164,"priority":62,"lap":63,"drivers":["PER"],"location":null,"detail":"PER pits — 2461.6s in the lane","payload":{"pit_duration":2461.6}}
+{"type":"pit_stop","session_time":7932.539,"priority":62,"lap":63,"drivers":["NOR"],"location":null,"detail":"NOR pits — 2443.2s in the lane","payload":{"pit_duration":2443.2}}
+{"type":"pit_stop","session_time":7938.554,"priority":62,"lap":63,"drivers":["RUS"],"location":null,"detail":"RUS pits — 2446.2s in the lane","payload":{"pit_duration":2446.2}}
+{"type":"pit_stop","session_time":7941.82,"priority":62,"lap":63,"drivers":["ALB"],"location":null,"detail":"ALB pits — 2443.4s in the lane","payload":{"pit_duration":2443.4}}
+{"type":"pit_stop","session_time":7944.242,"priority":62,"lap":63,"drivers":["PIA"],"location":null,"detail":"PIA pits — 2434.6s in the lane","payload":{"pit_duration":2434.6}}
+{"type":"pit_stop","session_time":7945.992,"priority":62,"lap":63,"drivers":["OCO"],"location":null,"detail":"OCO pits — 2432.2s in the lane","payload":{"pit_duration":2432.2}}
+{"type":"pit_stop","session_time":7949.304,"priority":62,"lap":63,"drivers":["TSU"],"location":null,"detail":"TSU pits — 2414.8s in the lane","payload":{"pit_duration":2414.8}}
+{"type":"pit_stop","session_time":7951.914,"priority":62,"lap":63,"drivers":["STR"],"location":null,"detail":"STR pits — 2410.7s in the lane","payload":{"pit_duration":2410.7}}
+{"type":"pit_stop","session_time":7953.789,"priority":62,"lap":63,"drivers":["HUL"],"location":null,"detail":"HUL pits — 2410.7s in the lane","payload":{"pit_duration":2410.7}}
+{"type":"pit_stop","session_time":7955.367,"priority":62,"lap":63,"drivers":["BOT"],"location":null,"detail":"BOT pits — 2405.1s in the lane","payload":{"pit_duration":2405.1}}
+{"type":"pit_stop","session_time":7960.054,"priority":62,"lap":63,"drivers":["LAW"],"location":null,"detail":"LAW pits — 2396.3s in the lane","payload":{"pit_duration":2396.3}}
+{"type":"pit_stop","session_time":7963.601,"priority":62,"lap":63,"drivers":["MAG"],"location":null,"detail":"MAG pits — 2394.7s in the lane","payload":{"pit_duration":2394.7}}
+{"type":"pit_stop","session_time":8054.599,"priority":62,"lap":64,"drivers":["VER"],"location":null,"detail":"VER pits — 2483.3s in the lane","payload":{"pit_duration":2483.3}}
+{"type":"pit_stop","session_time":8057.943,"priority":62,"lap":64,"drivers":["ALO"],"location":null,"detail":"ALO pits — 2455.3s in the lane","payload":{"pit_duration":2455.3}}
+{"type":"pit_stop","session_time":8062.318,"priority":62,"lap":64,"drivers":["PER"],"location":null,"detail":"PER pits — 35.5s in the lane","payload":{"pit_duration":35.5}}
+{"type":"pit_stop","session_time":8063.771,"priority":62,"lap":64,"drivers":["GAS"],"location":null,"detail":"GAS pits — 2443.1s in the lane","payload":{"pit_duration":2443.1}}
+{"type":"pit_stop","session_time":8068.224,"priority":62,"lap":64,"drivers":["SAI"],"location":null,"detail":"SAI pits — 2443.1s in the lane","payload":{"pit_duration":2443.1}}
+{"type":"pit_stop","session_time":8071.49,"priority":62,"lap":64,"drivers":["HAM"],"location":null,"detail":"HAM pits — 2431.1s in the lane","payload":{"pit_duration":2431.1}}
+{"type":"pit_stop","session_time":8073.974,"priority":62,"lap":64,"drivers":["NOR"],"location":null,"detail":"NOR pits — 44.2s in the lane","payload":{"pit_duration":44.2}}
+{"type":"pit_stop","session_time":8079.849,"priority":62,"lap":64,"drivers":["RUS"],"location":null,"detail":"RUS pits — 39.8s in the lane","payload":{"pit_duration":39.8}}
+{"type":"pit_stop","session_time":8082.474,"priority":62,"lap":64,"drivers":["ALB"],"location":null,"detail":"ALB pits — 39.2s in the lane","payload":{"pit_duration":39.2}}
+{"type":"pit_stop","session_time":8085.818,"priority":62,"lap":64,"drivers":["PIA"],"location":null,"detail":"PIA pits — 38.4s in the lane","payload":{"pit_duration":38.4}}
+{"type":"pit_stop","session_time":8087.396,"priority":62,"lap":64,"drivers":["OCO"],"location":null,"detail":"OCO pits — 37.0s in the lane","payload":{"pit_duration":37.0}}
+{"type":"pit_stop","session_time":8089.646,"priority":62,"lap":64,"drivers":["TSU"],"location":null,"detail":"TSU pits — 34.9s in the lane","payload":{"pit_duration":34.9}}
+{"type":"pit_stop","session_time":8091.458,"priority":62,"lap":64,"drivers":["STR"],"location":null,"detail":"STR pits — 33.5s in the lane","payload":{"pit_duration":33.5}}
+{"type":"pit_stop","session_time":8093.239,"priority":62,"lap":64,"drivers":["HUL"],"location":null,"detail":"HUL pits — 32.8s in the lane","payload":{"pit_duration":32.8}}
+{"type":"pit_stop","session_time":8095.083,"priority":62,"lap":64,"drivers":["BOT"],"location":null,"detail":"BOT pits — 32.5s in the lane","payload":{"pit_duration":32.5}}
+{"type":"pit_stop","session_time":8099.661,"priority":62,"lap":64,"drivers":["LAW"],"location":null,"detail":"LAW pits — 31.3s in the lane","payload":{"pit_duration":31.3}}
+{"type":"pit_stop","session_time":8102.755,"priority":62,"lap":64,"drivers":["MAG"],"location":null,"detail":"MAG pits — 30.6s in the lane","payload":{"pit_duration":30.6}}
+{"type":"overtake","session_time":8401.874,"priority":66,"lap":null,"drivers":["NOR","RUS"],"location":"P7","detail":"NOR passes RUS for P7","payload":{"position":7}}
+{"type":"overtake","session_time":8415.827,"priority":66,"lap":null,"drivers":["STR","TSU"],"location":"P12","detail":"STR passes TSU for P12","payload":{"position":12}}
+{"type":"pit_stop","session_time":8474.482,"priority":62,"lap":67,"drivers":["RUS"],"location":null,"detail":"RUS pits — 22.3s in the lane","payload":{"pit_duration":22.3}}
+{"type":"weather_change","session_time":8567.559,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"Rain is starting to fall","payload":{"track_temp":19.1,"air_temp":15.8}}
+{"type":"weather_change","session_time":8747.556,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"Rain is starting to fall","payload":{"track_temp":19.0,"air_temp":15.7}}
+{"type":"race_finish","session_time":8828.0,"priority":97,"lap":72,"drivers":["VER"],"location":null,"detail":"VER takes the chequered flag to win","payload":{}}
+{"type":"weather_change","session_time":8927.553,"priority":74,"lap":null,"drivers":[],"location":null,"detail":"The rain has stopped — track is drying","payload":{"track_temp":18.9,"air_temp":15.7}}
