@@ -69,6 +69,8 @@ src/f1_commentator/
 ├── events.py                 # TelemetryEvent schema shared on the wire
 ├── simulator/
 │   ├── replay.py             # JSONL + FastF1(stub) sources, paced replay
+│   ├── openf1.py             # OpenF1 → TelemetryEvent distillation (real race data)
+│   ├── ingest.py             # CLI: bake a real session to JSONL
 │   ├── server.py             # WebSocket broadcast server
 │   └── __main__.py           # python -m f1_commentator.simulator
 ├── llm/
@@ -87,6 +89,32 @@ src/f1_commentator/
 data/sample_session.jsonl     # a short, self-contained replay
 tests/                        # pytest suite (fakes, chunker, classifier, pipeline)
 ```
+
+## Real race data
+
+The simulator replays a **real F1 session distilled from the [OpenF1](https://openf1.org)
+historical API** — by default the eventful 2023 Dutch GP (rain, a safety car, a
+VSC, a red flag, 100+ overtakes, VER wins). The distillation reduces OpenF1's raw
+channels (race control, pit, laps, position, weather) into the same
+`TelemetryEvent` stream everything else consumes, and bakes it to a JSONL file so
+the demo is deterministic and offline.
+
+Re-bake it, or pick a different race:
+
+```bash
+# by session key (fastest)
+python -m f1_commentator.simulator.ingest --session-key 9149 --out data/dutch_gp_2023.jsonl
+# or by lookup
+python -m f1_commentator.simulator.ingest --year 2023 --country Brazil --session Race --out data/brazil_2023.jsonl
+```
+
+Point the simulator at any baked file via `SIM_REPLAY_FILE`. Events play in **real
+time** (`SIM_SPEED_MULTIPLIER=1.0`, paced by their real `session_time`); bump the
+multiplier for a shorter demo, or raise `SIM_MAX_GAP_SECONDS` for strict,
+uncompressed timing. The distillation logic lives in
+`simulator/openf1.py` as pure, unit-tested functions; `OpenF1ReplaySource` also
+supports live-distilling without a build step. `data/sample_session.jsonl` remains
+as a tiny synthetic feed for tests and offline runs.
 
 ## Quick start
 
