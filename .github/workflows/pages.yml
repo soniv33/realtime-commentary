@@ -34,6 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          # Enable Pages on first run so no manual Settings toggle is needed.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs
