@@ -265,11 +265,48 @@
 const OPENF1 = "https://api.openf1.org/v1";
 const YEARS = [2023, 2024, 2025, 2026];
 
-async function of1(path, params) {
+/* OpenF1 is a free community API and rate-limits bursts. Mirror the Python
+   client: serialise requests with a minimum gap, and back off on 429/5xx
+   (honouring Retry-After). Firing the six channels in parallel trips the limiter,
+   so loadRace() fetches them one at a time. */
+const OF1_MIN_INTERVAL = 350;   // ms between requests
+const OF1_MAX_RETRIES = 5;
+let of1LastRequest = 0;
+let of1Chain = Promise.resolve();   // serialises callers
+
+async function of1Once(path, params) {
   const q = new URLSearchParams(Object.entries(params || {}).filter(([, v]) => v != null));
-  const resp = await fetch(`${OPENF1}/${path}?${q}`);
-  if (!resp.ok) throw new Error(`OpenF1 ${path} → ${resp.status}`);
-  return resp.json();
+  const url = `${OPENF1}/${path}?${q}`;
+  let delay = 1000;
+  for (let attempt = 0; attempt < OF1_MAX_RETRIES; attempt++) {
+    const gap = Date.now() - of1LastRequest;
+    if (gap < OF1_MIN_INTERVAL) await sleep(OF1_MIN_INTERVAL - gap);
+    of1LastRequest = Date.now();
+    let resp;
+    try {
+      resp = await fetch(url);
+    } catch (e) {                                   // network/CORS blip
+      if (attempt === OF1_MAX_RETRIES - 1) throw new Error(`OpenF1 ${path} → ${e.message}`);
+      await sleep(delay); delay *= 2; continue;
+    }
+    if (resp.ok) return resp.json();
+    if (resp.status === 429 || resp.status >= 500) {
+      if (attempt === OF1_MAX_RETRIES - 1) throw new Error(`OpenF1 ${path} → ${resp.status} (rate limited)`);
+      const retryAfter = parseFloat(resp.headers.get("Retry-After") || "0") * 1000;
+      const wait = retryAfter > 0 ? retryAfter : delay;
+      ui.logInfo(`OpenF1 ${resp.status} on ${path} — retrying in ${(wait / 1000).toFixed(1)}s…`);
+      await sleep(wait); delay *= 2; continue;
+    }
+    throw new Error(`OpenF1 ${path} → ${resp.status}`);
+  }
+  throw new Error(`OpenF1 ${path} → gave up`);
+}
+
+/* Queue every call onto one chain so concurrent callers can't burst. */
+function of1(path, params) {
+  const run = of1Chain.then(() => of1Once(path, params));
+  of1Chain = run.catch(() => {});   // keep the chain alive after a failure
+  return run;
 }
 
 // Parse OpenF1 ISO dates (they carry microseconds) into epoch ms.
@@ -389,16 +426,31 @@ function winnerOf(position, drivers) {
   return leader;
 }
 
-/* Fetch every channel for a session_key and distil it into a sorted event list. */
+/* Fetch every channel for a session_key and distil it into a sorted event list.
+
+   Channels are fetched *sequentially* (not Promise.all) — six simultaneous
+   requests trip OpenF1's rate limiter. Results are cached in sessionStorage so
+   re-running the same race during a demo is instant and costs the API nothing. */
 async function loadRace(sessionKey, t0) {
-  const [drv, rc, pit, laps, position, weather] = await Promise.all([
-    of1("drivers", { session_key: sessionKey }),
-    of1("race_control", { session_key: sessionKey }),
-    of1("pit", { session_key: sessionKey }),
-    of1("laps", { session_key: sessionKey }),
-    of1("position", { session_key: sessionKey }),
-    of1("weather", { session_key: sessionKey }),
-  ]);
+  const CHANNELS = ["drivers", "race_control", "pit", "laps", "position", "weather"];
+  const cacheGet = k => { try { const v = sessionStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (_) { return null; } };
+  const cacheSet = (k, v) => { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (_) { /* quota/private mode */ } };
+
+  // Cache per channel, so a rate-limited attempt resumes instead of restarting.
+  const raw = {};
+  let cached = 0;
+  for (let i = 0; i < CHANNELS.length; i++) {
+    const ch = CHANNELS[i];
+    const key = `of1:${sessionKey}:${ch}`;
+    const hit = cacheGet(key);
+    if (hit) { raw[ch] = hit; cached++; continue; }
+    ui.setStatus(`Loading telemetry — ${ch} (${i + 1}/${CHANNELS.length})…`, false);
+    raw[ch] = await of1(ch, { session_key: sessionKey });
+    cacheSet(key, raw[ch]);
+  }
+  if (cached) ui.logInfo(`Reused ${cached} cached channel${cached > 1 ? "s" : ""} for this session.`);
+
+  const { drivers: drv, race_control: rc, pit, laps, position, weather } = raw;
   const drivers = driverMap(drv);
   const events = [];
   const ordered = [...position].sort((a, b) => a.date < b.date ? -1 : 1);
@@ -820,7 +872,12 @@ $("startBtn").addEventListener("click", async () => {
     state.events = await loadRace(key, state.t0);
   } catch (e) {
     ui.logError(`Telemetry load failed: ${e.message}`);
-    ui.setStatus("Load failed — pick another race", false);
+    if (/rate limited|429/.test(e.message)) {
+      ui.logInfo("OpenF1 is throttling us. Wait ~30s and press Start again — already-fetched channels are cached, so the retry picks up where it left off.");
+      ui.setStatus("Rate limited — wait a moment and retry", false);
+    } else {
+      ui.setStatus("Load failed — pick another race", false);
+    }
     stopRace();
     return;
   }
