@@ -4,151 +4,239 @@
   "session_key": 9582,
   "round_number": 15,
   "rounds_in_season": 24,
+  "provenance": "Championship standings and deep circuit history are official figures from the Jolpica-F1 API (the maintained Ergast successor, complete from 1950). Per-race colour (safety cars, on-track passes, rainfall) is derived from OpenF1 timing data; the overtake count is a position-channel heuristic, not the official FIA figure.",
   "standings": [
     {
       "position": 1,
       "driver": "VER",
-      "points": 273.0,
+      "points": 277.0,
       "gap_to_leader": 0.0,
       "wins": 7,
-      "podiums": 9
+      "podiums": 9,
+      "team": "Red Bull"
     },
     {
       "position": 2,
       "driver": "NOR",
-      "points": 196.0,
-      "gap_to_leader": 77.0,
+      "points": 199.0,
+      "gap_to_leader": 78.0,
       "wins": 1,
-      "podiums": 8
+      "podiums": 8,
+      "team": "McLaren"
     },
     {
       "position": 3,
       "driver": "LEC",
-      "points": 172.0,
-      "gap_to_leader": 101.0,
+      "points": 177.0,
+      "gap_to_leader": 100.0,
       "wins": 1,
-      "podiums": 5
+      "podiums": 5,
+      "team": "Ferrari"
     },
     {
       "position": 4,
       "driver": "PIA",
-      "points": 164.0,
-      "gap_to_leader": 109.0,
+      "points": 167.0,
+      "gap_to_leader": 110.0,
       "wins": 1,
-      "podiums": 4
+      "podiums": 4,
+      "team": "McLaren"
     },
     {
       "position": 5,
       "driver": "SAI",
-      "points": 161.0,
-      "gap_to_leader": 112.0,
+      "points": 162.0,
+      "gap_to_leader": 115.0,
       "wins": 1,
-      "podiums": 5
+      "podiums": 5,
+      "team": "Ferrari"
     },
     {
       "position": 6,
       "driver": "HAM",
-      "points": 141.0,
-      "gap_to_leader": 132.0,
-      "wins": 1,
-      "podiums": 4
+      "points": 150.0,
+      "gap_to_leader": 127.0,
+      "wins": 2,
+      "podiums": 4,
+      "team": "Mercedes"
     },
     {
       "position": 7,
-      "driver": "RUS",
-      "points": 139.0,
-      "gap_to_leader": 134.0,
-      "wins": 2,
-      "podiums": 3
+      "driver": "PER",
+      "points": 131.0,
+      "gap_to_leader": 146.0,
+      "wins": 0,
+      "podiums": 4,
+      "team": "Red Bull"
     },
     {
       "position": 8,
-      "driver": "PER",
-      "points": 126.0,
-      "gap_to_leader": 147.0,
-      "wins": 0,
-      "podiums": 4
+      "driver": "RUS",
+      "points": 116.0,
+      "gap_to_leader": 161.0,
+      "wins": 1,
+      "podiums": 3,
+      "team": "Mercedes"
     },
     {
       "position": 9,
       "driver": "ALO",
-      "points": 50.0,
-      "gap_to_leader": 223.0,
+      "points": 49.0,
+      "gap_to_leader": 228.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Aston Martin"
     },
     {
       "position": 10,
-      "driver": "HUL",
-      "points": 22.0,
-      "gap_to_leader": 251.0,
+      "driver": "STR",
+      "points": 24.0,
+      "gap_to_leader": 253.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Aston Martin"
     },
     {
       "position": 11,
-      "driver": "STR",
+      "driver": "HUL",
       "points": 22.0,
-      "gap_to_leader": 251.0,
+      "gap_to_leader": 255.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Haas F1 Team"
     },
     {
       "position": 12,
       "driver": "TSU",
-      "points": 20.0,
-      "gap_to_leader": 253.0,
+      "points": 22.0,
+      "gap_to_leader": 255.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "RB F1 Team"
     },
     {
       "position": 13,
       "driver": "RIC",
-      "points": 11.0,
-      "gap_to_leader": 262.0,
+      "points": 12.0,
+      "gap_to_leader": 265.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "RB F1 Team"
     },
     {
       "position": 14,
       "driver": "BEA",
       "points": 6.0,
-      "gap_to_leader": 267.0,
+      "gap_to_leader": 271.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Ferrari"
     },
     {
       "position": 15,
       "driver": "GAS",
       "points": 6.0,
-      "gap_to_leader": 267.0,
+      "gap_to_leader": 271.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Alpine F1 Team"
     },
     {
       "position": 16,
       "driver": "MAG",
       "points": 5.0,
-      "gap_to_leader": 268.0,
+      "gap_to_leader": 272.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Haas F1 Team"
     },
     {
       "position": 17,
-      "driver": "ALB",
-      "points": 4.0,
-      "gap_to_leader": 269.0,
+      "driver": "OCO",
+      "points": 5.0,
+      "gap_to_leader": 272.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Alpine F1 Team"
     },
     {
       "position": 18,
-      "driver": "OCO",
+      "driver": "ALB",
       "points": 4.0,
-      "gap_to_leader": 269.0,
+      "gap_to_leader": 273.0,
       "wins": 0,
-      "podiums": 0
+      "podiums": 0,
+      "team": "Williams"
+    },
+    {
+      "position": 19,
+      "driver": "ZHO",
+      "points": 0.0,
+      "gap_to_leader": 277.0,
+      "wins": 0,
+      "podiums": 0,
+      "team": "Sauber"
+    },
+    {
+      "position": 20,
+      "driver": "SAR",
+      "points": 0.0,
+      "gap_to_leader": 277.0,
+      "wins": 0,
+      "podiums": 0,
+      "team": "Williams"
+    },
+    {
+      "position": 21,
+      "driver": "BOT",
+      "points": 0.0,
+      "gap_to_leader": 277.0,
+      "wins": 0,
+      "podiums": 0,
+      "team": "Sauber"
     }
+  ],
+  "constructor_standings": [
+    [
+      "Red Bull",
+      408.0
+    ],
+    [
+      "McLaren",
+      366.0
+    ],
+    [
+      "Ferrari",
+      345.0
+    ],
+    [
+      "Mercedes",
+      266.0
+    ],
+    [
+      "Aston Martin",
+      73.0
+    ],
+    [
+      "RB F1 Team",
+      34.0
+    ],
+    [
+      "Haas F1 Team",
+      27.0
+    ],
+    [
+      "Alpine F1 Team",
+      11.0
+    ],
+    [
+      "Williams",
+      4.0
+    ],
+    [
+      "Sauber",
+      0.0
+    ]
   ],
   "circuit_history": [
     {
@@ -166,6 +254,22 @@
       "rain": true
     }
   ],
+  "circuit_record": {
+    "circuit": "Zandvoort",
+    "first_year": 1952,
+    "latest_year": 2025,
+    "races_held": 35,
+    "most_wins_driver": "Clark",
+    "most_wins_count": 4,
+    "recent_winners": [
+      "2025 PIA (McLaren)",
+      "2024 NOR (McLaren)",
+      "2023 VER (Red Bull)",
+      "2022 VER (Red Bull)",
+      "2021 VER (Red Bull)"
+    ],
+    "pole_to_win_rate": 0.49
+  },
   "driver_form": {
     "RUS": {
       "driver": "RUS",
@@ -1536,5 +1640,6 @@
       "a_ahead": 0,
       "b_ahead": 14
     }
-  }
+  },
+  "standings_source": "official"
 }

@@ -75,7 +75,8 @@ src/f1_commentator/
 │   └── __main__.py           # python -m f1_commentator.simulator
 ├── context/                  # the parallel "colour analyst" knowledge layer
 │   ├── models.py             # typed context pack (standings, history, form, h2h)
-│   ├── build.py              # derive it all from OpenF1 (pure + online halves)
+│   ├── jolpica.py            # official standings + deep venue history (1950+)
+│   ├── build.py              # assemble the pack (pure + online halves, w/ fallback)
 │   ├── store.py              # per-event relevance + rotating colour beats
 │   └── ingest.py             # CLI: bake a context pack to JSON
 ├── llm/
@@ -138,15 +139,27 @@ Play-by-play calls are also **enriched**: an overtake between two drivers carrie
 their season head-to-head and championship positions, so the line has depth
 ("…their fourth battle this season") instead of just naming the pass.
 
-### Everything is derived, nothing is invented
+### Everything is sourced, nothing is invented
 
 The colour analyst can only reference facts in the **context pack** — a typed,
-baked JSON artefact computed from telemetry:
+baked JSON artefact. Two APIs feed it, each used for what it's genuinely good at:
 
-* **Championship standings** going into the race (Grand Prix + Sprint points, wins, podiums, gaps)
-* **Circuit history** — the same venue in prior seasons: winner, podium, safety cars, red flags, on-track passes, whether it rained
-* **Driver form** — recent finishing positions
-* **Head-to-head** — race-finish records between any two drivers this season
+| Source | Provides |
+|---|---|
+| **[Jolpica-F1](https://api.jolpi.ca)** (maintained Ergast successor, complete from 1950) | **Official** championship standings going into the race (points, wins, gaps), constructors' table, and **deep venue history** — every running of the circuit, winningest driver there, pole-to-win rate, recent winners |
+| **[OpenF1](https://openf1.org)** (2023+) | telemetry colour Jolpica doesn't carry: safety cars, red flags, on-track passes, rainfall — plus driver form and season head-to-head |
+
+Real output for the 2024 Dutch GP:
+
+```
+Championship picture: P1 VER — 277 pts; P2 NOR — 199, 78 behind; P3 LEC — 177, 100 behind
+Constructors' championship: Red Bull 408, McLaren 366, Ferrari 345
+Zandvoort has hosted 35 races since 1952; Clark has the most wins here with 4;
+    49% of them won from pole
+Recent winners at Zandvoort: 2025 PIA (McLaren), 2024 NOR (McLaren), 2023 VER, 2022 VER
+2023 at Zandvoort: VER won, podium VER/ALO/GAS, wet race, 2 safety cars,
+    1 red flag, 107 on-track passes
+```
 
 The prompts forbid stating anything outside the event and the supplied facts, so
 there is no hallucinated history. Build a pack with:
@@ -158,11 +171,11 @@ python -m f1_commentator.context.ingest --session-key 9582 --out data/zandvoort_
 Then set `ORCH_CONTEXT_PACK` to it. With no pack the system degrades cleanly to
 pure play-by-play.
 
-> **Provenance / honest limits.** Standings are computed from finishing order, so
-> they exclude fastest-lap bonus points and post-race stewards' decisions
-> (penalties, DSQs) — totals can sit a few points off the official table. Each
-> pack states this in its `provenance` field. The overtake detector is likewise a
-> heuristic on the position channel, not the official FIA count.
+> **Provenance.** Each pack records its own `provenance` and a `standings_source`
+> of `official` or `derived`. If Jolpica is unreachable the build **falls back** to
+> standings computed from OpenF1 finishing order — correct to within a few points,
+> but missing fastest-lap bonuses and post-race stewards' decisions, and it says so.
+> The overtake count is a position-channel heuristic, not the official FIA figure.
 
 ## Quick start
 

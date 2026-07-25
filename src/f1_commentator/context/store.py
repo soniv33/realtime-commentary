@@ -73,7 +73,9 @@ class ContextStore:
         elif event.type is EventType.RACE_START:
             if c.standings:
                 facts.append(f"Championship going in — {c.title_picture()}")
-            if c.circuit_history:
+            if c.circuit_record:
+                facts.append(c.circuit_record.recent_summary())
+            elif c.circuit_history:
                 facts.append(c.circuit_history[0].summary())
 
         elif event.type is EventType.RACE_FINISH:
@@ -81,7 +83,10 @@ class ContextStore:
             standing = next((s for s in c.standings if s.driver == winner), None) if winner else None
             if standing:
                 facts.append(standing.summary())
-            if c.circuit_history and c.circuit_history[0].winner:
+            rec = c.circuit_record
+            if winner and rec and rec.most_wins_driver == winner and rec.most_wins_count > 1:
+                facts.append(f"{winner} has the most wins at {rec.circuit} — {rec.most_wins_count}")
+            elif c.circuit_history and c.circuit_history[0].winner:
                 facts.append(f"{c.circuit_history[0].year} winner here: {c.circuit_history[0].winner}")
 
         elif event.type in (EventType.SAFETY_CAR, EventType.RED_FLAG, EventType.VIRTUAL_SAFETY_CAR):
@@ -121,6 +126,14 @@ class ContextStore:
                     f"{lead.driver} leads {second.driver} by {second.gap_to_leader:g} points"
                     f" with {lead.wins} win{'s' if lead.wins != 1 else ''} so far",
                 ))
+        if c.constructor_standings:
+            top = ", ".join(f"{team} {pts:g}" for team, pts in c.constructor_standings[:3])
+            out.append(("constructors", f"Constructors' championship: {top}"))
+        # Deep venue history first — it's the strongest colour material.
+        if c.circuit_record:
+            out.append(("record", c.circuit_record.summary()))
+            if c.circuit_record.recent_winners:
+                out.append(("recent_winners", c.circuit_record.recent_summary()))
         for h in c.circuit_history:
             out.append((f"hist{h.year}", h.summary()))
         if c.round_number and c.rounds_in_season:

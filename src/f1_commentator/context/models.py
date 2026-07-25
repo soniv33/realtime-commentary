@@ -19,10 +19,39 @@ class SeasonStanding(BaseModel):
     gap_to_leader: float = Field(0.0, description="Points behind the championship leader.")
     wins: int = 0
     podiums: int = 0
+    team: str | None = None
 
     def summary(self) -> str:
         gap = "leads the championship" if self.gap_to_leader == 0 else f"{self.gap_to_leader:g} points behind"
         return f"P{self.position} {self.driver} — {self.points:g} pts, {gap}"
+
+
+class CircuitRecord(BaseModel):
+    """All-time record at a circuit, back to 1950 — the deep historical layer.
+
+    Where :class:`CircuitHistory` describes one specific running of the race (with
+    telemetry colour), this summarises the venue across its whole existence.
+    """
+
+    circuit: str
+    first_year: int
+    latest_year: int
+    races_held: int
+    most_wins_driver: str | None = None
+    most_wins_count: int = 0
+    recent_winners: list[str] = Field(default_factory=list, description="Newest first, e.g. '2025 PIA (McLaren)'.")
+    pole_to_win_rate: float | None = Field(None, description="Fraction of races won from pole.")
+
+    def summary(self) -> str:
+        bits = [f"{self.circuit} has hosted {self.races_held} races since {self.first_year}"]
+        if self.most_wins_driver and self.most_wins_count > 1:
+            bits.append(f"{self.most_wins_driver} has the most wins here with {self.most_wins_count}")
+        if self.pole_to_win_rate is not None:
+            bits.append(f"{self.pole_to_win_rate:.0%} of them won from pole")
+        return "; ".join(bits)
+
+    def recent_summary(self) -> str:
+        return f"Recent winners at {self.circuit}: " + ", ".join(self.recent_winners[:4])
 
 
 class CircuitHistory(BaseModel):
@@ -83,12 +112,23 @@ class HeadToHead(BaseModel):
         )
 
 
-PROVENANCE = (
-    "Derived from OpenF1 timing data. Standings count Grand Prix and Sprint points "
-    "from finishing order; they exclude fastest-lap bonus points and post-race "
-    "stewards' decisions (penalties, disqualifications), so totals can differ from "
-    "the official table by a few points."
+PROVENANCE_OFFICIAL = (
+    "Championship standings and deep circuit history are official figures from the "
+    "Jolpica-F1 API (the maintained Ergast successor, complete from 1950). Per-race "
+    "colour (safety cars, on-track passes, rainfall) is derived from OpenF1 timing "
+    "data; the overtake count is a position-channel heuristic, not the official FIA "
+    "figure."
 )
+
+PROVENANCE_DERIVED = (
+    "Standings derived from OpenF1 finishing order (Grand Prix + Sprint points) "
+    "because the official source was unavailable. They exclude fastest-lap bonus "
+    "points and post-race stewards' decisions (penalties, disqualifications), so "
+    "totals can differ from the official table by a few points."
+)
+
+# Back-compat alias for packs baked before the official source was wired in.
+PROVENANCE = PROVENANCE_DERIVED
 
 
 class RaceContext(BaseModel):
@@ -101,12 +141,19 @@ class RaceContext(BaseModel):
     rounds_in_season: int | None = None
     # Stated up front so anyone reading the pack knows exactly how it was computed
     # and where it can drift from official figures.
-    provenance: str = PROVENANCE
+    provenance: str = PROVENANCE_DERIVED
 
     standings: list[SeasonStanding] = Field(default_factory=list)
+    constructor_standings: list[tuple[str, float]] = Field(default_factory=list)
     circuit_history: list[CircuitHistory] = Field(default_factory=list)
+    circuit_record: CircuitRecord | None = Field(
+        None, description="All-time venue record (deep history, 1950+)."
+    )
     driver_form: dict[str, DriverForm] = Field(default_factory=dict)
     head_to_head: dict[str, HeadToHead] = Field(default_factory=dict)
+    standings_source: str = Field(
+        "derived", description="'official' (Jolpica) or 'derived' (computed from telemetry)."
+    )
 
     def h2h(self, a: str, b: str) -> HeadToHead | None:
         """Look up a pair in either order."""
