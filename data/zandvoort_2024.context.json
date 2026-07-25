@@ -1,0 +1,1540 @@
+{
+  "year": 2024,
+  "circuit": "Zandvoort",
+  "session_key": 9582,
+  "round_number": 15,
+  "rounds_in_season": 24,
+  "standings": [
+    {
+      "position": 1,
+      "driver": "VER",
+      "points": 273.0,
+      "gap_to_leader": 0.0,
+      "wins": 7,
+      "podiums": 9
+    },
+    {
+      "position": 2,
+      "driver": "NOR",
+      "points": 196.0,
+      "gap_to_leader": 77.0,
+      "wins": 1,
+      "podiums": 8
+    },
+    {
+      "position": 3,
+      "driver": "LEC",
+      "points": 172.0,
+      "gap_to_leader": 101.0,
+      "wins": 1,
+      "podiums": 5
+    },
+    {
+      "position": 4,
+      "driver": "PIA",
+      "points": 164.0,
+      "gap_to_leader": 109.0,
+      "wins": 1,
+      "podiums": 4
+    },
+    {
+      "position": 5,
+      "driver": "SAI",
+      "points": 161.0,
+      "gap_to_leader": 112.0,
+      "wins": 1,
+      "podiums": 5
+    },
+    {
+      "position": 6,
+      "driver": "HAM",
+      "points": 141.0,
+      "gap_to_leader": 132.0,
+      "wins": 1,
+      "podiums": 4
+    },
+    {
+      "position": 7,
+      "driver": "RUS",
+      "points": 139.0,
+      "gap_to_leader": 134.0,
+      "wins": 2,
+      "podiums": 3
+    },
+    {
+      "position": 8,
+      "driver": "PER",
+      "points": 126.0,
+      "gap_to_leader": 147.0,
+      "wins": 0,
+      "podiums": 4
+    },
+    {
+      "position": 9,
+      "driver": "ALO",
+      "points": 50.0,
+      "gap_to_leader": 223.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 10,
+      "driver": "HUL",
+      "points": 22.0,
+      "gap_to_leader": 251.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 11,
+      "driver": "STR",
+      "points": 22.0,
+      "gap_to_leader": 251.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 12,
+      "driver": "TSU",
+      "points": 20.0,
+      "gap_to_leader": 253.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 13,
+      "driver": "RIC",
+      "points": 11.0,
+      "gap_to_leader": 262.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 14,
+      "driver": "BEA",
+      "points": 6.0,
+      "gap_to_leader": 267.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 15,
+      "driver": "GAS",
+      "points": 6.0,
+      "gap_to_leader": 267.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 16,
+      "driver": "MAG",
+      "points": 5.0,
+      "gap_to_leader": 268.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 17,
+      "driver": "ALB",
+      "points": 4.0,
+      "gap_to_leader": 269.0,
+      "wins": 0,
+      "podiums": 0
+    },
+    {
+      "position": 18,
+      "driver": "OCO",
+      "points": 4.0,
+      "gap_to_leader": 269.0,
+      "wins": 0,
+      "podiums": 0
+    }
+  ],
+  "circuit_history": [
+    {
+      "year": 2023,
+      "circuit": "Zandvoort",
+      "winner": "VER",
+      "podium": [
+        "VER",
+        "ALO",
+        "GAS"
+      ],
+      "safety_cars": 2,
+      "red_flags": 1,
+      "on_track_passes": 107,
+      "rain": true
+    }
+  ],
+  "driver_form": {
+    "RUS": {
+      "driver": "RUS",
+      "recent_finishes": [
+        1,
+        8,
+        19,
+        1,
+        4
+      ],
+      "best_finish": 1
+    },
+    "HAM": {
+      "driver": "HAM",
+      "recent_finishes": [
+        2,
+        3,
+        1,
+        4,
+        3
+      ],
+      "best_finish": 1
+    },
+    "PIA": {
+      "driver": "PIA",
+      "recent_finishes": [
+        3,
+        1,
+        4,
+        2,
+        7
+      ],
+      "best_finish": 1
+    },
+    "LEC": {
+      "driver": "LEC",
+      "recent_finishes": [
+        4,
+        4,
+        14,
+        11,
+        5
+      ],
+      "best_finish": 4
+    },
+    "VER": {
+      "driver": "VER",
+      "recent_finishes": [
+        5,
+        5,
+        2,
+        5,
+        1
+      ],
+      "best_finish": 1
+    },
+    "NOR": {
+      "driver": "NOR",
+      "recent_finishes": [
+        6,
+        2,
+        3,
+        20,
+        2
+      ],
+      "best_finish": 2
+    },
+    "SAI": {
+      "driver": "SAI",
+      "recent_finishes": [
+        7,
+        6,
+        5,
+        3,
+        6
+      ],
+      "best_finish": 3
+    },
+    "PER": {
+      "driver": "PER",
+      "recent_finishes": [
+        8,
+        7,
+        17,
+        7,
+        8
+      ],
+      "best_finish": 7
+    },
+    "ALO": {
+      "driver": "ALO",
+      "recent_finishes": [
+        9,
+        11,
+        8,
+        18,
+        12
+      ],
+      "best_finish": 8
+    },
+    "OCO": {
+      "driver": "OCO",
+      "recent_finishes": [
+        10,
+        18,
+        16,
+        12,
+        10
+      ],
+      "best_finish": 10
+    },
+    "RIC": {
+      "driver": "RIC",
+      "recent_finishes": [
+        11,
+        12,
+        13,
+        9,
+        15
+      ],
+      "best_finish": 9
+    },
+    "STR": {
+      "driver": "STR",
+      "recent_finishes": [
+        12,
+        10,
+        7,
+        13,
+        14
+      ],
+      "best_finish": 7
+    },
+    "ALB": {
+      "driver": "ALB",
+      "recent_finishes": [
+        13,
+        14,
+        9,
+        15,
+        18
+      ],
+      "best_finish": 9
+    },
+    "GAS": {
+      "driver": "GAS",
+      "recent_finishes": [
+        14,
+        20,
+        20,
+        10,
+        9
+      ],
+      "best_finish": 9
+    },
+    "MAG": {
+      "driver": "MAG",
+      "recent_finishes": [
+        15,
+        15,
+        12,
+        8,
+        17
+      ],
+      "best_finish": 8
+    },
+    "BOT": {
+      "driver": "BOT",
+      "recent_finishes": [
+        16,
+        16,
+        15,
+        16,
+        16
+      ],
+      "best_finish": 15
+    },
+    "TSU": {
+      "driver": "TSU",
+      "recent_finishes": [
+        17,
+        9,
+        10,
+        14,
+        19
+      ],
+      "best_finish": 9
+    },
+    "SAR": {
+      "driver": "SAR",
+      "recent_finishes": [
+        18,
+        17,
+        11,
+        19,
+        20
+      ],
+      "best_finish": 11
+    },
+    "HUL": {
+      "driver": "HUL",
+      "recent_finishes": [
+        19,
+        13,
+        6,
+        6,
+        11
+      ],
+      "best_finish": 6
+    },
+    "ZHO": {
+      "driver": "ZHO",
+      "recent_finishes": [
+        20,
+        19,
+        18,
+        17,
+        13
+      ],
+      "best_finish": 13
+    },
+    "BEA": {
+      "driver": "BEA",
+      "recent_finishes": [
+        7
+      ],
+      "best_finish": 7
+    }
+  },
+  "head_to_head": {
+    "VER|SAR": {
+      "driver_a": "VER",
+      "driver_b": "SAR",
+      "a_ahead": 13,
+      "b_ahead": 0
+    },
+    "VER|RIC": {
+      "driver_a": "VER",
+      "driver_b": "RIC",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|NOR": {
+      "driver_a": "VER",
+      "driver_b": "NOR",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "VER|GAS": {
+      "driver_a": "VER",
+      "driver_b": "GAS",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|PER": {
+      "driver_a": "VER",
+      "driver_b": "PER",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|ALO": {
+      "driver_a": "VER",
+      "driver_b": "ALO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|LEC": {
+      "driver_a": "VER",
+      "driver_b": "LEC",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "VER|STR": {
+      "driver_a": "VER",
+      "driver_b": "STR",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|MAG": {
+      "driver_a": "VER",
+      "driver_b": "MAG",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|TSU": {
+      "driver_a": "VER",
+      "driver_b": "TSU",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|ALB": {
+      "driver_a": "VER",
+      "driver_b": "ALB",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|ZHO": {
+      "driver_a": "VER",
+      "driver_b": "ZHO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|HUL": {
+      "driver_a": "VER",
+      "driver_b": "HUL",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|OCO": {
+      "driver_a": "VER",
+      "driver_b": "OCO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|HAM": {
+      "driver_a": "VER",
+      "driver_b": "HAM",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "VER|SAI": {
+      "driver_a": "VER",
+      "driver_b": "SAI",
+      "a_ahead": 10,
+      "b_ahead": 3
+    },
+    "VER|RUS": {
+      "driver_a": "VER",
+      "driver_b": "RUS",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "VER|BOT": {
+      "driver_a": "VER",
+      "driver_b": "BOT",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "VER|PIA": {
+      "driver_a": "VER",
+      "driver_b": "PIA",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "SAR|RIC": {
+      "driver_a": "SAR",
+      "driver_b": "RIC",
+      "a_ahead": 4,
+      "b_ahead": 9
+    },
+    "SAR|NOR": {
+      "driver_a": "SAR",
+      "driver_b": "NOR",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "SAR|GAS": {
+      "driver_a": "SAR",
+      "driver_b": "GAS",
+      "a_ahead": 3,
+      "b_ahead": 10
+    },
+    "SAR|PER": {
+      "driver_a": "SAR",
+      "driver_b": "PER",
+      "a_ahead": 2,
+      "b_ahead": 11
+    },
+    "SAR|ALO": {
+      "driver_a": "SAR",
+      "driver_b": "ALO",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "SAR|LEC": {
+      "driver_a": "SAR",
+      "driver_b": "LEC",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "SAR|STR": {
+      "driver_a": "SAR",
+      "driver_b": "STR",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "SAR|MAG": {
+      "driver_a": "SAR",
+      "driver_b": "MAG",
+      "a_ahead": 2,
+      "b_ahead": 11
+    },
+    "SAR|TSU": {
+      "driver_a": "SAR",
+      "driver_b": "TSU",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "SAR|ALB": {
+      "driver_a": "SAR",
+      "driver_b": "ALB",
+      "a_ahead": 2,
+      "b_ahead": 11
+    },
+    "SAR|ZHO": {
+      "driver_a": "SAR",
+      "driver_b": "ZHO",
+      "a_ahead": 6,
+      "b_ahead": 7
+    },
+    "SAR|HUL": {
+      "driver_a": "SAR",
+      "driver_b": "HUL",
+      "a_ahead": 2,
+      "b_ahead": 11
+    },
+    "SAR|OCO": {
+      "driver_a": "SAR",
+      "driver_b": "OCO",
+      "a_ahead": 3,
+      "b_ahead": 10
+    },
+    "SAR|HAM": {
+      "driver_a": "SAR",
+      "driver_b": "HAM",
+      "a_ahead": 0,
+      "b_ahead": 13
+    },
+    "SAR|SAI": {
+      "driver_a": "SAR",
+      "driver_b": "SAI",
+      "a_ahead": 0,
+      "b_ahead": 12
+    },
+    "SAR|RUS": {
+      "driver_a": "SAR",
+      "driver_b": "RUS",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "SAR|BOT": {
+      "driver_a": "SAR",
+      "driver_b": "BOT",
+      "a_ahead": 4,
+      "b_ahead": 9
+    },
+    "SAR|PIA": {
+      "driver_a": "SAR",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 13
+    },
+    "RIC|NOR": {
+      "driver_a": "RIC",
+      "driver_b": "NOR",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "RIC|GAS": {
+      "driver_a": "RIC",
+      "driver_b": "GAS",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "RIC|PER": {
+      "driver_a": "RIC",
+      "driver_b": "PER",
+      "a_ahead": 3,
+      "b_ahead": 11
+    },
+    "RIC|ALO": {
+      "driver_a": "RIC",
+      "driver_b": "ALO",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "RIC|LEC": {
+      "driver_a": "RIC",
+      "driver_b": "LEC",
+      "a_ahead": 3,
+      "b_ahead": 11
+    },
+    "RIC|STR": {
+      "driver_a": "RIC",
+      "driver_b": "STR",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "RIC|MAG": {
+      "driver_a": "RIC",
+      "driver_b": "MAG",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "RIC|TSU": {
+      "driver_a": "RIC",
+      "driver_b": "TSU",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "RIC|ALB": {
+      "driver_a": "RIC",
+      "driver_b": "ALB",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "RIC|ZHO": {
+      "driver_a": "RIC",
+      "driver_b": "ZHO",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "RIC|HUL": {
+      "driver_a": "RIC",
+      "driver_b": "HUL",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "RIC|OCO": {
+      "driver_a": "RIC",
+      "driver_b": "OCO",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "RIC|HAM": {
+      "driver_a": "RIC",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "RIC|SAI": {
+      "driver_a": "RIC",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "RIC|RUS": {
+      "driver_a": "RIC",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "RIC|BOT": {
+      "driver_a": "RIC",
+      "driver_b": "BOT",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "RIC|PIA": {
+      "driver_a": "RIC",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 14
+    },
+    "NOR|GAS": {
+      "driver_a": "NOR",
+      "driver_b": "GAS",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|PER": {
+      "driver_a": "NOR",
+      "driver_b": "PER",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "NOR|ALO": {
+      "driver_a": "NOR",
+      "driver_b": "ALO",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "NOR|LEC": {
+      "driver_a": "NOR",
+      "driver_b": "LEC",
+      "a_ahead": 7,
+      "b_ahead": 7
+    },
+    "NOR|STR": {
+      "driver_a": "NOR",
+      "driver_b": "STR",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|MAG": {
+      "driver_a": "NOR",
+      "driver_b": "MAG",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|TSU": {
+      "driver_a": "NOR",
+      "driver_b": "TSU",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|ALB": {
+      "driver_a": "NOR",
+      "driver_b": "ALB",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|ZHO": {
+      "driver_a": "NOR",
+      "driver_b": "ZHO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|HUL": {
+      "driver_a": "NOR",
+      "driver_b": "HUL",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|OCO": {
+      "driver_a": "NOR",
+      "driver_b": "OCO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|HAM": {
+      "driver_a": "NOR",
+      "driver_b": "HAM",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "NOR|SAI": {
+      "driver_a": "NOR",
+      "driver_b": "SAI",
+      "a_ahead": 8,
+      "b_ahead": 5
+    },
+    "NOR|RUS": {
+      "driver_a": "NOR",
+      "driver_b": "RUS",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "NOR|BOT": {
+      "driver_a": "NOR",
+      "driver_b": "BOT",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "NOR|PIA": {
+      "driver_a": "NOR",
+      "driver_b": "PIA",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "GAS|PER": {
+      "driver_a": "GAS",
+      "driver_b": "PER",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "GAS|ALO": {
+      "driver_a": "GAS",
+      "driver_b": "ALO",
+      "a_ahead": 4,
+      "b_ahead": 10
+    },
+    "GAS|LEC": {
+      "driver_a": "GAS",
+      "driver_b": "LEC",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "GAS|STR": {
+      "driver_a": "GAS",
+      "driver_b": "STR",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "GAS|MAG": {
+      "driver_a": "GAS",
+      "driver_b": "MAG",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "GAS|TSU": {
+      "driver_a": "GAS",
+      "driver_b": "TSU",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "GAS|ALB": {
+      "driver_a": "GAS",
+      "driver_b": "ALB",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "GAS|ZHO": {
+      "driver_a": "GAS",
+      "driver_b": "ZHO",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "GAS|HUL": {
+      "driver_a": "GAS",
+      "driver_b": "HUL",
+      "a_ahead": 4,
+      "b_ahead": 10
+    },
+    "GAS|OCO": {
+      "driver_a": "GAS",
+      "driver_b": "OCO",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "GAS|HAM": {
+      "driver_a": "GAS",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "GAS|SAI": {
+      "driver_a": "GAS",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "GAS|RUS": {
+      "driver_a": "GAS",
+      "driver_b": "RUS",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "GAS|BOT": {
+      "driver_a": "GAS",
+      "driver_b": "BOT",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "GAS|PIA": {
+      "driver_a": "GAS",
+      "driver_b": "PIA",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "PER|ALO": {
+      "driver_a": "PER",
+      "driver_b": "ALO",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|LEC": {
+      "driver_a": "PER",
+      "driver_b": "LEC",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "PER|STR": {
+      "driver_a": "PER",
+      "driver_b": "STR",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|MAG": {
+      "driver_a": "PER",
+      "driver_b": "MAG",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "PER|TSU": {
+      "driver_a": "PER",
+      "driver_b": "TSU",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|ALB": {
+      "driver_a": "PER",
+      "driver_b": "ALB",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|ZHO": {
+      "driver_a": "PER",
+      "driver_b": "ZHO",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "PER|HUL": {
+      "driver_a": "PER",
+      "driver_b": "HUL",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|OCO": {
+      "driver_a": "PER",
+      "driver_b": "OCO",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|HAM": {
+      "driver_a": "PER",
+      "driver_b": "HAM",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "PER|SAI": {
+      "driver_a": "PER",
+      "driver_b": "SAI",
+      "a_ahead": 3,
+      "b_ahead": 10
+    },
+    "PER|RUS": {
+      "driver_a": "PER",
+      "driver_b": "RUS",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "PER|BOT": {
+      "driver_a": "PER",
+      "driver_b": "BOT",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "PER|PIA": {
+      "driver_a": "PER",
+      "driver_b": "PIA",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "ALO|LEC": {
+      "driver_a": "ALO",
+      "driver_b": "LEC",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "ALO|STR": {
+      "driver_a": "ALO",
+      "driver_b": "STR",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "ALO|MAG": {
+      "driver_a": "ALO",
+      "driver_b": "MAG",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "ALO|TSU": {
+      "driver_a": "ALO",
+      "driver_b": "TSU",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "ALO|ALB": {
+      "driver_a": "ALO",
+      "driver_b": "ALB",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "ALO|ZHO": {
+      "driver_a": "ALO",
+      "driver_b": "ZHO",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "ALO|HUL": {
+      "driver_a": "ALO",
+      "driver_b": "HUL",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "ALO|OCO": {
+      "driver_a": "ALO",
+      "driver_b": "OCO",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "ALO|HAM": {
+      "driver_a": "ALO",
+      "driver_b": "HAM",
+      "a_ahead": 4,
+      "b_ahead": 10
+    },
+    "ALO|SAI": {
+      "driver_a": "ALO",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "ALO|RUS": {
+      "driver_a": "ALO",
+      "driver_b": "RUS",
+      "a_ahead": 4,
+      "b_ahead": 10
+    },
+    "ALO|BOT": {
+      "driver_a": "ALO",
+      "driver_b": "BOT",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "ALO|PIA": {
+      "driver_a": "ALO",
+      "driver_b": "PIA",
+      "a_ahead": 3,
+      "b_ahead": 11
+    },
+    "LEC|STR": {
+      "driver_a": "LEC",
+      "driver_b": "STR",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "LEC|MAG": {
+      "driver_a": "LEC",
+      "driver_b": "MAG",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "LEC|TSU": {
+      "driver_a": "LEC",
+      "driver_b": "TSU",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "LEC|ALB": {
+      "driver_a": "LEC",
+      "driver_b": "ALB",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "LEC|ZHO": {
+      "driver_a": "LEC",
+      "driver_b": "ZHO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "LEC|HUL": {
+      "driver_a": "LEC",
+      "driver_b": "HUL",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "LEC|OCO": {
+      "driver_a": "LEC",
+      "driver_b": "OCO",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "LEC|HAM": {
+      "driver_a": "LEC",
+      "driver_b": "HAM",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "LEC|SAI": {
+      "driver_a": "LEC",
+      "driver_b": "SAI",
+      "a_ahead": 7,
+      "b_ahead": 6
+    },
+    "LEC|RUS": {
+      "driver_a": "LEC",
+      "driver_b": "RUS",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "LEC|BOT": {
+      "driver_a": "LEC",
+      "driver_b": "BOT",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "LEC|PIA": {
+      "driver_a": "LEC",
+      "driver_b": "PIA",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "STR|MAG": {
+      "driver_a": "STR",
+      "driver_b": "MAG",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "STR|TSU": {
+      "driver_a": "STR",
+      "driver_b": "TSU",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "STR|ALB": {
+      "driver_a": "STR",
+      "driver_b": "ALB",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "STR|ZHO": {
+      "driver_a": "STR",
+      "driver_b": "ZHO",
+      "a_ahead": 10,
+      "b_ahead": 4
+    },
+    "STR|HUL": {
+      "driver_a": "STR",
+      "driver_b": "HUL",
+      "a_ahead": 7,
+      "b_ahead": 7
+    },
+    "STR|OCO": {
+      "driver_a": "STR",
+      "driver_b": "OCO",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "STR|HAM": {
+      "driver_a": "STR",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "STR|SAI": {
+      "driver_a": "STR",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "STR|RUS": {
+      "driver_a": "STR",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "STR|BOT": {
+      "driver_a": "STR",
+      "driver_b": "BOT",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "STR|PIA": {
+      "driver_a": "STR",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 14
+    },
+    "MAG|TSU": {
+      "driver_a": "MAG",
+      "driver_b": "TSU",
+      "a_ahead": 7,
+      "b_ahead": 7
+    },
+    "MAG|ALB": {
+      "driver_a": "MAG",
+      "driver_b": "ALB",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "MAG|ZHO": {
+      "driver_a": "MAG",
+      "driver_b": "ZHO",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "MAG|HUL": {
+      "driver_a": "MAG",
+      "driver_b": "HUL",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "MAG|OCO": {
+      "driver_a": "MAG",
+      "driver_b": "OCO",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "MAG|HAM": {
+      "driver_a": "MAG",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "MAG|SAI": {
+      "driver_a": "MAG",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "MAG|RUS": {
+      "driver_a": "MAG",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "MAG|BOT": {
+      "driver_a": "MAG",
+      "driver_b": "BOT",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "MAG|PIA": {
+      "driver_a": "MAG",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 14
+    },
+    "TSU|ALB": {
+      "driver_a": "TSU",
+      "driver_b": "ALB",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "TSU|ZHO": {
+      "driver_a": "TSU",
+      "driver_b": "ZHO",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "TSU|HUL": {
+      "driver_a": "TSU",
+      "driver_b": "HUL",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "TSU|OCO": {
+      "driver_a": "TSU",
+      "driver_b": "OCO",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "TSU|HAM": {
+      "driver_a": "TSU",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "TSU|SAI": {
+      "driver_a": "TSU",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "TSU|RUS": {
+      "driver_a": "TSU",
+      "driver_b": "RUS",
+      "a_ahead": 3,
+      "b_ahead": 11
+    },
+    "TSU|BOT": {
+      "driver_a": "TSU",
+      "driver_b": "BOT",
+      "a_ahead": 11,
+      "b_ahead": 3
+    },
+    "TSU|PIA": {
+      "driver_a": "TSU",
+      "driver_b": "PIA",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "ALB|ZHO": {
+      "driver_a": "ALB",
+      "driver_b": "ZHO",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "ALB|HUL": {
+      "driver_a": "ALB",
+      "driver_b": "HUL",
+      "a_ahead": 3,
+      "b_ahead": 11
+    },
+    "ALB|OCO": {
+      "driver_a": "ALB",
+      "driver_b": "OCO",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "ALB|HAM": {
+      "driver_a": "ALB",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "ALB|SAI": {
+      "driver_a": "ALB",
+      "driver_b": "SAI",
+      "a_ahead": 0,
+      "b_ahead": 13
+    },
+    "ALB|RUS": {
+      "driver_a": "ALB",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "ALB|BOT": {
+      "driver_a": "ALB",
+      "driver_b": "BOT",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "ALB|PIA": {
+      "driver_a": "ALB",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 14
+    },
+    "ZHO|HUL": {
+      "driver_a": "ZHO",
+      "driver_b": "HUL",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "ZHO|OCO": {
+      "driver_a": "ZHO",
+      "driver_b": "OCO",
+      "a_ahead": 3,
+      "b_ahead": 11
+    },
+    "ZHO|HAM": {
+      "driver_a": "ZHO",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "ZHO|SAI": {
+      "driver_a": "ZHO",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "ZHO|RUS": {
+      "driver_a": "ZHO",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "ZHO|BOT": {
+      "driver_a": "ZHO",
+      "driver_b": "BOT",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "ZHO|PIA": {
+      "driver_a": "ZHO",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 14
+    },
+    "HUL|OCO": {
+      "driver_a": "HUL",
+      "driver_b": "OCO",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "HUL|HAM": {
+      "driver_a": "HUL",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "HUL|SAI": {
+      "driver_a": "HUL",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "HUL|RUS": {
+      "driver_a": "HUL",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "HUL|BOT": {
+      "driver_a": "HUL",
+      "driver_b": "BOT",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "HUL|PIA": {
+      "driver_a": "HUL",
+      "driver_b": "PIA",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "OCO|HAM": {
+      "driver_a": "OCO",
+      "driver_b": "HAM",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "OCO|SAI": {
+      "driver_a": "OCO",
+      "driver_b": "SAI",
+      "a_ahead": 1,
+      "b_ahead": 12
+    },
+    "OCO|RUS": {
+      "driver_a": "OCO",
+      "driver_b": "RUS",
+      "a_ahead": 2,
+      "b_ahead": 12
+    },
+    "OCO|BOT": {
+      "driver_a": "OCO",
+      "driver_b": "BOT",
+      "a_ahead": 9,
+      "b_ahead": 5
+    },
+    "OCO|PIA": {
+      "driver_a": "OCO",
+      "driver_b": "PIA",
+      "a_ahead": 1,
+      "b_ahead": 13
+    },
+    "HAM|SAI": {
+      "driver_a": "HAM",
+      "driver_b": "SAI",
+      "a_ahead": 5,
+      "b_ahead": 8
+    },
+    "HAM|RUS": {
+      "driver_a": "HAM",
+      "driver_b": "RUS",
+      "a_ahead": 5,
+      "b_ahead": 9
+    },
+    "HAM|BOT": {
+      "driver_a": "HAM",
+      "driver_b": "BOT",
+      "a_ahead": 13,
+      "b_ahead": 1
+    },
+    "HAM|PIA": {
+      "driver_a": "HAM",
+      "driver_b": "PIA",
+      "a_ahead": 6,
+      "b_ahead": 8
+    },
+    "SAI|RUS": {
+      "driver_a": "SAI",
+      "driver_b": "RUS",
+      "a_ahead": 9,
+      "b_ahead": 4
+    },
+    "SAI|BOT": {
+      "driver_a": "SAI",
+      "driver_b": "BOT",
+      "a_ahead": 12,
+      "b_ahead": 1
+    },
+    "SAI|PIA": {
+      "driver_a": "SAI",
+      "driver_b": "PIA",
+      "a_ahead": 6,
+      "b_ahead": 7
+    },
+    "RUS|BOT": {
+      "driver_a": "RUS",
+      "driver_b": "BOT",
+      "a_ahead": 12,
+      "b_ahead": 2
+    },
+    "RUS|PIA": {
+      "driver_a": "RUS",
+      "driver_b": "PIA",
+      "a_ahead": 8,
+      "b_ahead": 6
+    },
+    "BOT|PIA": {
+      "driver_a": "BOT",
+      "driver_b": "PIA",
+      "a_ahead": 0,
+      "b_ahead": 14
+    }
+  }
+}

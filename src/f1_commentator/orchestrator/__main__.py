@@ -11,14 +11,31 @@ from __future__ import annotations
 import asyncio
 import logging
 
+from pathlib import Path
+
 from ..audio.elevenlabs_client import ElevenLabsStreamer
 from ..audio.playback import NullSink, SpeakerSink
 from ..config import get_settings
+from ..context.store import ContextStore
 from ..llm.anthropic_client import AnthropicCommentator
 from .classifier import EventClassifier
 from .pipeline import CommentaryPipeline
 
 logger = logging.getLogger(__name__)
+
+
+def load_context(settings) -> ContextStore:
+    """Load the baked context pack, degrading to pure play-by-play if absent."""
+    path = settings.orchestrator.context_pack
+    if not path:
+        logger.info("no context pack configured — play-by-play only")
+        return ContextStore.empty()
+    if not Path(path).exists():
+        logger.warning("context pack %s not found — play-by-play only", path)
+        return ContextStore.empty()
+    store = ContextStore.load(path)
+    logger.info("loaded context pack: %s", store.headline())
+    return store
 
 
 def build_pipeline(settings) -> CommentaryPipeline:
@@ -30,6 +47,7 @@ def build_pipeline(settings) -> CommentaryPipeline:
         streamer=ElevenLabsStreamer(settings.audio),
         sink=sink,
         settings=settings.orchestrator,
+        context=load_context(settings),
     )
 
 

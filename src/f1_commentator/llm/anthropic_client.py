@@ -13,7 +13,12 @@ import anthropic
 
 from ..config import LLMSettings
 from ..events import TelemetryEvent
-from ..orchestrator.prompts import SYSTEM_PROMPT, build_user_prompt
+from ..orchestrator.prompts import (
+    COLOUR_SYSTEM_PROMPT,
+    SYSTEM_PROMPT,
+    build_colour_prompt,
+    build_user_prompt,
+)
 
 
 class AnthropicCommentator:
@@ -28,19 +33,39 @@ class AnthropicCommentator:
         # an `ant auth login` profile); no key is hardcoded.
         self._client = client or anthropic.AsyncAnthropic()
 
-    async def stream_commentary(self, event: TelemetryEvent) -> AsyncIterator[str]:
-        """Yield Claude's text deltas as they arrive.
+    async def _stream(self, system: str, user: str, max_tokens: int) -> AsyncIterator[str]:
+        """Shared streaming call — yields text deltas the instant they arrive."""
+        async with self._client.messages.stream(
+            model=self._settings.model,
+            max_tokens=max_tokens,
+            system=system,
+            messages=[{"role": "user", "content": user}],
+        ) as stream:
+            async for delta in stream.text_stream:
+                if delta:
+                    yield delta
+
+    async def stream_commentary(
+        self, event: TelemetryEvent, context: list[str] | None = None
+    ) -> AsyncIterator[str]:
+        """Yield Claude's play-by-play text deltas as they arrive.
 
         Uses ``messages.stream`` and forwards ``text_stream`` so the first token
         leaves this method the instant the model produces it - no waiting for the
         full sentence.
         """
-        async with self._client.messages.stream(
-            model=self._settings.model,
-            max_tokens=self._settings.max_tokens,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": build_user_prompt(event)}],
-        ) as stream:
-            async for delta in stream.text_stream:
-                if delta:
-                    yield delta
+        async for delta in self._stream(
+            SYSTEM_PROMPT, build_user_prompt(event, context), self._settings.max_tokens
+        ):
+            yield delta
+
+    async def stream_colour(
+        self, fact: str, *, race: str = "", since_last: float | None = None
+    ) -> AsyncIterator[str]:
+        """Yield colour-analyst text deltas for one context beat."""
+        async for delta in self._stream(
+            COLOUR_SYSTEM_PROMPT,
+            build_colour_prompt(fact, race=race, since_last=since_last),
+            self._settings.colour_max_tokens,
+        ):
+            yield delta
