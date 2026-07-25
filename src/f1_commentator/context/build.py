@@ -15,7 +15,15 @@ from __future__ import annotations
 from collections import defaultdict
 
 from ..simulator import openf1
-from .models import CircuitHistory, DriverForm, HeadToHead, RaceContext, SeasonStanding
+from . import jolpica
+from .models import (
+    PROVENANCE_OFFICIAL,
+    CircuitHistory,
+    DriverForm,
+    HeadToHead,
+    RaceContext,
+    SeasonStanding,
+)
 
 # Championship points. Grands Prix score the top 10; Sprints the top 8. Both are
 # counted, otherwise the standings drift well away from the official table (2024
@@ -256,8 +264,45 @@ def build_from_openf1(session: dict, *, history_years: int = 2, progress=None) -
                 say(f"  ! skipped {y} {circuit}: {exc}")
 
     entrants = list(openf1.driver_map(openf1.get("drivers", session_key=key)).values())
-    return build_context(
+    ctx = build_context(
         year=year, circuit=circuit, session_key=key,
         season_results=season_results, circuit_results=circuit_results,
         entrants=entrants, round_number=round_number, rounds_in_season=len(season) or None,
     )
+
+    # 3) Upgrade championship + history with authoritative data where we can reach it.
+    #    Jolpica gives official points (incl. penalties and FL bonuses) and venue
+    #    history back to 1950. Any failure leaves the derived pack intact.
+    if round_number:
+        try:
+            official = jolpica.standings_going_into(year, round_number)
+            if official:
+                # Preserve podium counts, which Jolpica's table doesn't carry.
+                podiums = {s.driver: s.podiums for s in ctx.standings}
+                for row in official:
+                    row.podiums = podiums.get(row.driver, 0)
+                ctx.standings = official
+                ctx.standings_source = "official"
+                ctx.provenance = PROVENANCE_OFFICIAL
+                say(f"standings: official table after round {round_number - 1}")
+        except jolpica.JolpicaUnavailable as exc:
+            say(f"! official standings unavailable ({exc}) — keeping derived table")
+
+        try:
+            ctx.constructor_standings = jolpica.constructor_standings_going_into(year, round_number)
+        except jolpica.JolpicaUnavailable:
+            pass
+
+    try:
+        circuit_id = jolpica.find_circuit_id(circuit)
+        if circuit_id:
+            record = jolpica.circuit_record(circuit_id, circuit)
+            if record:
+                ctx.circuit_record = record
+                say(f"circuit record: {record.races_held} races since {record.first_year}")
+        else:
+            say(f"! no Jolpica circuit match for '{circuit}'")
+    except jolpica.JolpicaUnavailable as exc:
+        say(f"! deep circuit history unavailable ({exc})")
+
+    return ctx

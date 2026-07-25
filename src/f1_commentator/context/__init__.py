@@ -8,11 +8,19 @@ Everything here is **derived from telemetry data**, never invented — that keep
 colour commentary grounded and defensible (no hallucinated history).
 """
 
-from .models import CircuitHistory, DriverForm, HeadToHead, RaceContext, SeasonStanding
+from .models import (
+    CircuitHistory,
+    CircuitRecord,
+    DriverForm,
+    HeadToHead,
+    RaceContext,
+    SeasonStanding,
+)
 from .store import ContextStore
 
 __all__ = [
     "CircuitHistory",
+    "CircuitRecord",
     "ContextStore",
     "DriverForm",
     "HeadToHead",
