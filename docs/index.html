@@ -147,7 +147,7 @@
     <div class="badge">🏎️</div>
     <div>
       <h1>F1 Realtime Voice Commentator</h1>
-      <div class="sub">Live telemetry → fast LLM → ElevenLabs, streamed in the browser · ultra-low-latency voice AI POV</div>
+      <div class="sub">Pick any race → real telemetry → fast LLM → ElevenLabs, streamed live in the browser · ultra-low-latency voice AI POV</div>
     </div>
     <div class="spacer"></div>
     <a class="ghlink" id="repolink" href="#" target="_blank" rel="noopener">View source ↗</a>
@@ -165,6 +165,17 @@
       <section class="panel">
         <h2>Booth controls</h2>
         <div class="controls">
+          <div class="row two">
+            <div class="row">
+              <label for="year">Season</label>
+              <select id="year"></select>
+            </div>
+            <div class="row">
+              <label for="race">Race <span class="hint" id="raceHint"></span></label>
+              <select id="race"></select>
+            </div>
+          </div>
+
           <div class="row">
             <label for="elKey">ElevenLabs API key <span class="hint">— pasted at runtime, kept in this tab only, never sent anywhere but ElevenLabs</span></label>
             <input type="password" id="elKey" placeholder="xi-... (leave blank for silent visual demo)" autocomplete="off" />
@@ -175,11 +186,12 @@
               <input type="text" id="voiceId" value="JBFqnCBsd6RMkjVDRZzb" />
             </div>
             <div class="row">
-              <label for="speed">Replay speed</label>
+              <label for="speed">Replay speed <span class="hint">(races run ~2h)</span></label>
               <select id="speed">
-                <option value="2">2× </option>
-                <option value="4" selected>4× (demo)</option>
-                <option value="8">8×</option>
+                <option value="1">1× real time</option>
+                <option value="8" selected>8× (demo)</option>
+                <option value="30">30×</option>
+                <option value="120">120× (highlights)</option>
               </select>
             </div>
           </div>
@@ -232,7 +244,7 @@
   </div>
 
   <footer class="info">
-    <p>This page runs the <strong>real dual-streaming pipeline in your browser</strong>: a replayed telemetry feed → a fast LLM token stream → a punctuation chunker → ElevenLabs’ Flash streaming-input WebSocket → Web Audio playback, with a live broadcast-offset. It’s the browser twin of the Python backend in this repo (<code>src/f1_commentator/</code>).</p>
+    <p>Pick <strong>any race from 2023 onwards</strong> and this page fetches its real telemetry from the <a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a> API, distils it into multi-signal events, and runs the <strong>real dual-streaming pipeline in your browser</strong>: telemetry → a fast LLM token stream → a punctuation chunker → ElevenLabs’ Flash streaming-input WebSocket → Web Audio playback, with a live broadcast-offset. It’s the browser twin of the Python backend in this repo (<code>src/f1_commentator/</code>), and the distillation is a direct port of <code>simulator/openf1.py</code> — so what you hear is exactly how the system would respond to a live feed.</p>
     <div class="flow">event ─▶ commentary token stream ─▶ chunk_by_punctuation ─▶ ElevenLabs stream-input WS ─▶ broadcast offset ─▶ speakers
         (scripted, or real Claude Haiku)     (earliest boundary)         (real audio, PCM 16 kHz)</div>
     <h3>Why keys are entered at runtime</h3>
@@ -244,25 +256,166 @@
 <script>
 "use strict";
 
-/* ───────────────────────── Telemetry replay data ─────────────────────────
-   Mirrors data/sample_session.jsonl, with a scripted broadcast line per event
-   so the demo produces punchy commentary with zero API keys. session_time is
-   seconds since the green light and drives the replay pacing. */
-const EVENTS = [
-  { type:"race_start",     session_time:0.0,   priority:95, lap:1,  drivers:[],           detail:"Lights out and away we go",              commentary:"Lights out and away we go — it's chaos into turn one!" },
-  { type:"overtake",       session_time:6.5,   priority:80, lap:1,  drivers:["LEC","VER"],detail:"Leclerc sends it down the inside",       commentary:"Leclerc dives down the inside and snatches the lead from Verstappen!" },
-  { type:"tick",           session_time:12.0,  priority:10, lap:1,  drivers:[],           detail:"DRS train forming",                      commentary:"" },
-  { type:"overtake",       session_time:18.0,  priority:78, lap:2,  drivers:["VER","LEC"],detail:"Verstappen fights straight back",        commentary:"Verstappen fights straight back — the lead changes hands again!" },
-  { type:"fastest_lap",    session_time:40.0,  priority:60, lap:3,  drivers:["NOR"],      detail:"Norris sets the fastest lap",            commentary:"Norris lights up the timing screens with the fastest lap!" },
-  { type:"weather_change", session_time:55.0,  priority:70, lap:4,  drivers:[],           detail:"Light rain in sector 2",                 commentary:"Rain is arriving in sector two — this could turn everything upside down!" },
-  { type:"yellow_flag",    session_time:72.0,  priority:88, lap:5,  drivers:["TSU"],      detail:"Yellow flag, car off at the chicane",    commentary:"Yellow flags in sector two — Tsunoda is off at the chicane!" },
-  { type:"safety_car",     session_time:78.0,  priority:92, lap:5,  drivers:[],           detail:"Safety car deployed",                    commentary:"Safety car scrambled — the whole field bunches up behind it!" },
-  { type:"pit_stop",       session_time:96.0,  priority:65, lap:6,  drivers:["VER"],      detail:"Verstappen dives into the pits",         commentary:"Verstappen dives into the pits and gambles on fresh mediums!" },
-  { type:"green_flag",     session_time:130.0, priority:85, lap:8,  drivers:[],           detail:"Green flag, racing resumes",             commentary:"Green flag, we are racing again — hold your breath!" },
-  { type:"overtake",       session_time:134.0, priority:82, lap:8,  drivers:["HAM","RUS"],detail:"Hamilton pounces at the restart",        commentary:"Hamilton pounces at the restart and muscles past Russell!" },
-  { type:"fastest_lap",    session_time:150.0, priority:62, lap:9,  drivers:["VER"],      detail:"Verstappen goes fastest on fresh mediums",commentary:"Verstappen storms back with the fastest lap on new rubber!" },
-  { type:"race_finish",    session_time:180.0, priority:97, lap:10, drivers:["VER"],      detail:"Verstappen takes the chequered flag",    commentary:"Verstappen takes the chequered flag — a stunning drive to the win!" },
-];
+/* ───────────────────── Real telemetry from the OpenF1 API ─────────────────
+   The demo fetches a real historical session in the browser and distils it into
+   the same TelemetryEvent stream the Python backend produces — a faithful JS
+   port of src/f1_commentator/simulator/openf1.py. No scripted lines: each
+   event's own `detail` is the broadcast copy (or real Claude, if enabled).
+   OpenF1 sends `access-control-allow-origin: *`, so this works from static Pages. */
+const OPENF1 = "https://api.openf1.org/v1";
+const YEARS = [2023, 2024, 2025, 2026];
+
+async function of1(path, params) {
+  const q = new URLSearchParams(Object.entries(params || {}).filter(([, v]) => v != null));
+  const resp = await fetch(`${OPENF1}/${path}?${q}`);
+  if (!resp.ok) throw new Error(`OpenF1 ${path} → ${resp.status}`);
+  return resp.json();
+}
+
+// Parse OpenF1 ISO dates (they carry microseconds) into epoch ms.
+const parseDate = s => Date.parse(String(s).replace(/(\.\d{3})\d+/, "$1"));
+const stOf = (s, t0) => (parseDate(s) - t0) / 1000;   // session-time seconds
+
+const FLAG_MAP = { YELLOW: ["yellow_flag", 78], "DOUBLE YELLOW": ["double_yellow", 90], RED: ["red_flag", 96], GREEN: ["green_flag", 84] };
+
+function driverMap(drivers) {
+  const m = {};
+  for (const d of drivers) m[d.driver_number] = d.name_acronym || `#${d.driver_number}`;
+  return m;
+}
+
+function distilRaceControl(rc, t0, drivers) {
+  const out = [], last = {};
+  for (const m of [...rc].sort((a, b) => a.date < b.date ? -1 : 1)) {
+    const st = stOf(m.date, t0);
+    if (st < 0) continue;
+    const msg = (m.message || "").trim();
+    let etype = null, prio = 50;
+    if (m.category === "Flag" && FLAG_MAP[m.flag]) { [etype, prio] = FLAG_MAP[m.flag]; }
+    else if (m.category === "Flag" && m.flag === "CHEQUERED") {
+      out.push({ type: "race_finish", session_time: st, priority: 97, lap: m.lap_number, drivers: [], detail: "The chequered flag is out", payload: {} });
+      continue;
+    } else if (m.category === "SafetyCar" && msg.includes("DEPLOYED")) {
+      etype = msg.includes("VIRTUAL") ? "virtual_safety_car" : "safety_car";
+      prio = msg.includes("VIRTUAL") ? 85 : 92;
+    }
+    if (!etype) continue;
+    if (last[etype] !== undefined && (st - last[etype]) < 15) continue;   // collapse sector repeats
+    last[etype] = st;
+    const cap = msg ? msg.charAt(0) + msg.slice(1).toLowerCase() : etype.replace(/_/g, " ");
+    out.push({ type: etype, session_time: st, priority: prio, lap: m.lap_number,
+      drivers: drivers[m.driver_number] ? [drivers[m.driver_number]] : [],
+      location: m.sector ? `sector ${m.sector}` : null, detail: cap, payload: {} });
+  }
+  return out;
+}
+
+function distilPit(pit, t0, drivers) {
+  return [...pit].sort((a, b) => a.date < b.date ? -1 : 1).flatMap(p => {
+    const st = stOf(p.date, t0); if (st < 0) return [];
+    const acr = drivers[p.driver_number], dur = p.pit_duration;
+    return [{ type: "pit_stop", session_time: st, priority: 62, lap: p.lap_number,
+      drivers: acr ? [acr] : [], detail: `${acr || "Car #" + p.driver_number} pits` + (dur ? ` — ${dur.toFixed(1)}s in the lane` : ""),
+      payload: dur ? { pit_duration: dur } : {} }];
+  });
+}
+
+function distilFastestLaps(laps, t0, drivers) {
+  const done = [];
+  for (const l of laps) {
+    if (!l.lap_duration || !l.date_start || l.is_pit_out_lap) continue;
+    done.push({ end: parseDate(l.date_start) + l.lap_duration * 1000, lap: l });
+  }
+  done.sort((a, b) => a.end - b.end);
+  const out = []; let best = null;
+  for (const { end, lap } of done) {
+    const st = (end - t0) / 1000; if (st < 0) continue;
+    if (best === null || lap.lap_duration < best) {
+      best = lap.lap_duration;
+      const acr = drivers[lap.driver_number];
+      const mins = Math.floor(lap.lap_duration / 60), secs = lap.lap_duration - mins * 60;
+      out.push({ type: "fastest_lap", session_time: st, priority: 60, lap: lap.lap_number,
+        drivers: acr ? [acr] : [], detail: `${acr || "Car"} sets the fastest lap of the race`,
+        payload: { time: `${mins}:${secs.toFixed(3).padStart(6, "0")}` } });
+    }
+  }
+  return out;
+}
+
+function distilOvertakes(position, t0, drivers, pit, topN = 12, pairCooldown = 45) {
+  const pitTimes = {};
+  for (const p of pit) (pitTimes[p.driver_number] = pitTimes[p.driver_number] || []).push(stOf(p.date, t0));
+  const nearPit = (num, st) => (pitTimes[num] || []).some(pt => Math.abs(st - pt) < 8);
+  const out = [], pos = {}, holder = {}, lastPair = {};
+  for (const r of [...position].sort((a, b) => a.date < b.date ? -1 : 1)) {
+    const num = r.driver_number, np = r.position, st = stOf(r.date, t0);
+    const old = pos[num], passed = holder[np];
+    if (old != null && holder[old] === num) delete holder[old];
+    pos[num] = np; holder[np] = num;
+    if (old == null || st < 0) continue;
+    if (np < old && (old - np) === 1 && np <= topN && passed && passed !== num) {
+      if (nearPit(num, st) || nearPit(passed, st)) continue;
+      const key = num + ">" + passed;
+      if (lastPair[key] !== undefined && (st - lastPair[key]) < pairCooldown) continue;
+      lastPair[key] = st;
+      const a = drivers[num], b = drivers[passed]; if (!a || !b) continue;
+      const prio = np === 1 ? 90 : np <= 3 ? 82 : np <= 6 ? 74 : 66;
+      out.push({ type: "overtake", session_time: st, priority: prio, lap: null,
+        drivers: [a, b], location: `P${np}`, detail: `${a} passes ${b} for P${np}`, payload: { position: np } });
+    }
+  }
+  return out;
+}
+
+function distilWeather(weather, t0, minGap = 120) {
+  const out = []; let prev = null, lastEmit = null;
+  for (const w of [...weather].sort((a, b) => a.date < b.date ? -1 : 1)) {
+    const st = stOf(w.date, t0), rain = w.rainfall ? 1 : 0;
+    if (st < 0) { prev = rain; continue; }
+    if (prev !== null && rain !== prev && (lastEmit === null || (st - lastEmit) >= minGap)) {
+      out.push({ type: "weather_change", session_time: st, priority: 74, drivers: [],
+        detail: rain ? "Rain is starting to fall" : "The rain has stopped — track is drying",
+        payload: { track_temp: w.track_temperature, air_temp: w.air_temperature } });
+      lastEmit = st;
+    }
+    prev = rain;
+  }
+  return out;
+}
+
+function winnerOf(position, drivers) {
+  let leader = null;
+  for (const r of [...position].sort((a, b) => a.date < b.date ? -1 : 1)) if (r.position === 1) leader = drivers[r.driver_number];
+  return leader;
+}
+
+/* Fetch every channel for a session_key and distil it into a sorted event list. */
+async function loadRace(sessionKey, t0) {
+  const [drv, rc, pit, laps, position, weather] = await Promise.all([
+    of1("drivers", { session_key: sessionKey }),
+    of1("race_control", { session_key: sessionKey }),
+    of1("pit", { session_key: sessionKey }),
+    of1("laps", { session_key: sessionKey }),
+    of1("position", { session_key: sessionKey }),
+    of1("weather", { session_key: sessionKey }),
+  ]);
+  const drivers = driverMap(drv);
+  const events = [];
+  const ordered = [...position].sort((a, b) => a.date < b.date ? -1 : 1);
+  if (ordered.length) {
+    const first = ordered[0].date;
+    const grid = {}; for (const r of ordered) if (r.date === first) grid[r.position] = drivers[r.driver_number];
+    events.push({ type: "race_start", session_time: 0, priority: 95, lap: 1,
+      drivers: [1, 2, 3].map(p => grid[p]).filter(Boolean), detail: "Lights out and the race is underway", payload: {} });
+  }
+  events.push(...distilRaceControl(rc, t0, drivers), ...distilPit(pit, t0, drivers),
+    ...distilFastestLaps(laps, t0, drivers), ...distilOvertakes(position, t0, drivers, pit),
+    ...distilWeather(weather, t0));
+  const win = winnerOf(position, drivers);
+  if (win) for (const e of events) if (e.type === "race_finish" && !e.drivers.length) { e.drivers = [win]; e.detail = `${win} takes the chequered flag to win`; }
+  events.sort((a, b) => a.session_time - b.session_time);
+  return events;
+}
 
 /* ───────────────────────── Threshold classifier ─────────────────────────
    Same gate as the Python EventClassifier: worthy types, priority floor, and a
@@ -483,8 +636,9 @@ async function narrate(ev) {
    1-slot queue with drop-oldest, exactly like the Python pipeline — one
    commentator voice, newest event wins if narration falls behind. */
 const state = {
-  running: false, slot: null, speed: 4, offsetSec: 0,
+  running: false, slot: null, speed: 8, offsetSec: 0,
   elKey: "", voiceId: "JBFqnCBsd6RMkjVDRZzb", liveLLM: false, anthropicKey: "",
+  events: [], sessions: [], t0: 0,
 };
 
 async function narrator() {
@@ -499,12 +653,12 @@ async function narrator() {
 }
 
 async function runRace() {
-  ui.reset();
+  if (!state.events.length) { ui.logError("No events to replay for this race."); stopRace(); return; }
   state.running = true;
   ui.setLive(true);
   narrator();
   let prev = null;
-  for (const ev of EVENTS) {
+  for (const ev of state.events) {
     if (!state.running) break;
     if (prev !== null) {
       let gap = (ev.session_time - prev) / state.speed;
@@ -552,7 +706,7 @@ const ui = {
     el.className = "evt" + (ev.type === "tick" ? " tick" : "") + (hot ? " hot" : "");
     const drivers = ev.drivers.map(d => `<span class="chip">${d}</span>`).join("");
     el.innerHTML =
-      `<div class="etop"><span class="etype">${ev.type.replace(/_/g," ")}</span><span>t+${ev.session_time.toFixed(1)}s · L${ev.lap}</span></div>` +
+      `<div class="etop"><span class="etype">${ev.type.replace(/_/g," ")}</span><span>${fmtClock(ev.session_time)}${ev.lap != null ? " · L" + ev.lap : ""}</span></div>` +
       `<div class="edetail">${ev.detail}</div>` +
       `<div class="emeta">${drivers}${ev.priority ? `prio ${ev.priority}` : ""}</div>`;
     const feed = $("feed"); feed.appendChild(el); feed.scrollTop = feed.scrollHeight;
@@ -573,7 +727,13 @@ const ui = {
     el.className = "l err"; el.innerHTML = `<span class="t">!</span><span>${msg}</span>`;
     const log = $("log"); log.appendChild(el); log.scrollTop = log.scrollHeight;
   },
+  logInfo(msg) {
+    const el = document.createElement("div");
+    el.className = "l"; el.innerHTML = `<span class="t">·</span><span>${msg}</span>`;
+    const log = $("log"); log.appendChild(el); log.scrollTop = log.scrollHeight;
+  },
   note(msg) { $("audioNote").textContent = msg; },
+  raceHint(msg) { $("raceHint").textContent = msg ? `— ${msg}` : ""; },
   bumpCalls() { this._calls++; $("mCalls").textContent = String(this._calls); },
   bumpChunks() { this._chunks++; $("mChunks").textContent = String(this._chunks); },
   setTTFB(ms) { const el = $("mTTFB"); el.textContent = Math.round(ms) + " ms"; el.className = "v" + (ms < 800 ? " good" : ""); },
@@ -585,23 +745,100 @@ function shouldCommentateProbe(ev) {
   return ev.priority >= MIN_PRIORITY;
 }
 
+/* Real races run for hours — show session time as h:mm:ss, not raw seconds. */
+function fmtClock(sec) {
+  const s = Math.max(0, Math.round(sec));
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+  return (h ? `${h}:${String(m).padStart(2, "0")}` : `${m}`) + `:${String(ss).padStart(2, "0")}`;
+}
+
+/* ─────────────────── Season / race pickers (OpenF1 catalogue) ─────────────── */
+function populateYears() {
+  const sel = $("year");
+  sel.innerHTML = YEARS.map(y => `<option value="${y}">${y}</option>`).join("");
+  sel.value = String(2023);   // 2023 Zandvoort is the standout demo race
+}
+
+async function loadRaceList() {
+  const year = $("year").value;
+  const race = $("race");
+  race.innerHTML = `<option value="">Loading…</option>`;
+  race.disabled = true; $("startBtn").disabled = true;
+  ui.raceHint("");
+  try {
+    const sessions = await of1("sessions", { year, session_name: "Race" });
+    sessions.sort((a, b) => a.date_start < b.date_start ? -1 : 1);
+    state.sessions = sessions;
+    if (!sessions.length) {
+      race.innerHTML = `<option value="">No races found for ${year}</option>`;
+      ui.raceHint("try another season");
+      return;
+    }
+    race.innerHTML = sessions.map(s =>
+      `<option value="${s.session_key}">${s.location}${s.country_code ? ` (${s.country_code})` : ""} · ${s.date_start.slice(0, 10)}</option>`
+    ).join("");
+    // Default to the 2023 Dutch GP when it's in the list — a great demo race.
+    const dutch = sessions.find(s => s.session_key === 9149);
+    race.value = String((dutch || sessions[0]).session_key);
+    race.disabled = false; $("startBtn").disabled = false;
+    ui.raceHint(`${sessions.length} races`);
+  } catch (e) {
+    race.innerHTML = `<option value="">Failed to load</option>`;
+    ui.logError(`Could not load ${year} races: ${e.message}`);
+    ui.raceHint("load failed");
+  }
+}
+
 /* Controls */
 $("offset").addEventListener("input", e => { state.offsetSec = parseFloat(e.target.value); $("offsetVal").textContent = state.offsetSec.toFixed(1); });
 $("speed").addEventListener("change", e => { state.speed = parseFloat(e.target.value); });
 $("liveLLM").addEventListener("change", e => { state.liveLLM = e.target.checked; $("anthropicRow").style.display = e.target.checked ? "grid" : "none"; });
 
-$("startBtn").addEventListener("click", () => {
+$("year").addEventListener("change", loadRaceList);
+
+$("startBtn").addEventListener("click", async () => {
   state.elKey = $("elKey").value.trim();
   state.voiceId = $("voiceId").value.trim() || "JBFqnCBsd6RMkjVDRZzb";
   state.anthropicKey = $("anKey").value.trim();
   state.liveLLM = $("liveLLM").checked;
   if (state.liveLLM && !state.anthropicKey) { alert("Live Claude is enabled but no Anthropic key was entered. Add one, or uncheck it to use scripted commentary."); return; }
+
+  const key = Number($("race").value);
+  const session = state.sessions.find(s => s.session_key === key);
+  if (!session) { ui.logError("Pick a race first."); return; }
+
   ui.note(state.elKey ? "" : "No ElevenLabs key — running the silent visual demo (streaming + chunk dispatch, no audio).");
-  player.resume();  // must happen inside a user gesture
+  player.resume();  // must happen inside a user gesture (before any await)
   $("startBtn").disabled = true; $("stopBtn").disabled = false;
+
+  // Fetch + distil the real session, then replay it.
+  ui.reset();
+  ui.setStatus(`Loading ${session.location} ${session.year} telemetry…`, false);
+  ui.logInfo(`Fetching OpenF1 telemetry for ${session.year} ${session.location} (session ${key})…`);
+  try {
+    state.t0 = parseDate(session.date_start);
+    state.events = await loadRace(key, state.t0);
+  } catch (e) {
+    ui.logError(`Telemetry load failed: ${e.message}`);
+    ui.setStatus("Load failed — pick another race", false);
+    stopRace();
+    return;
+  }
+  // The Stop button re-enables Start; if that happened while we were loading,
+  // the user cancelled — don't kick off the replay behind their back.
+  if (!$("startBtn").disabled) {
+    ui.logInfo(`Loaded ${state.events.length} events (cancelled before start).`);
+    return;
+  }
+  const span = state.events.length ? state.events[state.events.length - 1].session_time : 0;
+  ui.logInfo(`Distilled ${state.events.length} events across ${(span / 60).toFixed(0)} min of racing — going live.`);
   runRace();
 });
 $("stopBtn").addEventListener("click", stopRace);
+
+/* Boot: fill the season list, then load that season's races. */
+populateYears();
+loadRaceList();
 
 /* Best-effort link back to the repo (works once served from github.io). */
 (function setRepoLink() {
