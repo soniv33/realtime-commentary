@@ -17,12 +17,25 @@ class FakeCommentator:
     def __init__(self, line: str = "Leclerc sends it down the inside, brilliant move!") -> None:
         self._line = line
         self.calls: list[TelemetryEvent] = []
+        self.contexts: list[list[str]] = []
+        self.colour_calls: list[str] = []
 
-    async def stream_commentary(self, event: TelemetryEvent) -> AsyncIterator[str]:
+    async def stream_commentary(
+        self, event: TelemetryEvent, context: list[str] | None = None
+    ) -> AsyncIterator[str]:
         self.calls.append(event)
+        self.contexts.append(list(context or []))
         # Yield in ~3-char deltas so the chunker sees realistic fragmentation.
         for i in range(0, len(self._line), 3):
             yield self._line[i : i + 3]
+
+    async def stream_colour(
+        self, fact: str, *, race: str = "", since_last: float | None = None
+    ) -> AsyncIterator[str]:
+        self.colour_calls.append(fact)
+        line = f"Some context for you: {fact}."
+        for i in range(0, len(line), 3):
+            yield line[i : i + 3]
 
 
 class FakeStreamer:

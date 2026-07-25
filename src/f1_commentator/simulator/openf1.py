@@ -13,6 +13,9 @@ lists and return events, so the distillation is unit-testable without a network.
 from __future__ import annotations
 
 import json
+import logging
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections.abc import Iterator
@@ -21,7 +24,16 @@ from datetime import datetime, timedelta
 from ..events import EventType, TelemetryEvent
 from .replay import ReplaySource
 
+logger = logging.getLogger(__name__)
+
 BASE_URL = "https://api.openf1.org/v1"
+
+# OpenF1 is a free community API — be a good citizen. Building a context pack can
+# need dozens of calls, so we self-throttle and back off on 429 rather than
+# hammering it.
+MIN_INTERVAL = 0.25  # seconds between requests
+MAX_RETRIES = 5
+_last_request = 0.0
 
 # race_control flag value -> (event type, priority)
 _FLAG_MAP: dict[str, tuple[EventType, int]] = {
@@ -36,12 +48,41 @@ _FLAG_MAP: dict[str, tuple[EventType, int]] = {
 # HTTP client (stdlib only — no extra runtime dependency)
 # --------------------------------------------------------------------------- #
 def get(path: str, *, timeout: float = 60.0, **params) -> list[dict]:
-    """GET ``/{path}`` with query params, returning the decoded JSON list."""
+    """GET ``/{path}`` with query params, returning the decoded JSON list.
+
+    Self-throttled to ``MIN_INTERVAL`` between calls, with exponential backoff on
+    429/5xx (honouring ``Retry-After`` when present). Building a context pack fans
+    out to dozens of requests, so this keeps us inside OpenF1's limits.
+    """
+    global _last_request
     query = urllib.parse.urlencode({k: v for k, v in params.items() if v is not None})
     url = f"{BASE_URL}/{path}?{query}" if query else f"{BASE_URL}/{path}"
     req = urllib.request.Request(url, headers={"User-Agent": "f1-commentator/0.1"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 - fixed https host
-        return json.loads(resp.read().decode("utf-8"))
+
+    delay = 1.0
+    for attempt in range(MAX_RETRIES):
+        gap = time.monotonic() - _last_request
+        if gap < MIN_INTERVAL:
+            time.sleep(MIN_INTERVAL - gap)
+        _last_request = time.monotonic()
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 - fixed https host
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            retryable = exc.code == 429 or exc.code >= 500
+            if not retryable or attempt == MAX_RETRIES - 1:
+                raise
+            wait = float(exc.headers.get("Retry-After") or delay)
+            logger.info("OpenF1 %s on %s — retrying in %.1fs", exc.code, path, wait)
+            time.sleep(wait)
+            delay *= 2
+        except urllib.error.URLError as exc:
+            if attempt == MAX_RETRIES - 1:
+                raise
+            logger.info("OpenF1 network error on %s (%s) — retrying in %.1fs", path, exc.reason, delay)
+            time.sleep(delay)
+            delay *= 2
+    raise RuntimeError("unreachable")  # pragma: no cover
 
 
 def find_session(

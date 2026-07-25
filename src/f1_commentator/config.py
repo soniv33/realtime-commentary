@@ -45,6 +45,8 @@ class LLMSettings(BaseSettings):
     # one-sentence broadcast line with the lowest time-to-first-token.
     model: str = "claude-haiku-4-5"
     max_tokens: int = 90
+    # Colour lines run slightly longer than a play-by-play call.
+    colour_max_tokens: int = 120
     # Kept tight: broadcast lines are one sentence. See prompts.py.
 
 
@@ -75,6 +77,16 @@ class OrchestratorSettings(BaseSettings):
     cooldown_seconds: float = 4.0
     # Drop any commentary request below this priority.
     min_priority: int = 40
+
+    # --- Colour commentary (the parallel context track) ---------------------
+    # Baked context pack (see: python -m f1_commentator.context.ingest). Empty
+    # disables the colour track and the system runs pure play-by-play.
+    context_pack: str = ""
+    enable_colour: bool = True
+    # Speak a colour beat once the feed has been quiet this long (wall seconds).
+    colour_after_silence_seconds: float = 12.0
+    # Never let colour lines run closer together than this.
+    colour_min_interval_seconds: float = 25.0
 
 
 class Settings(BaseSettings):

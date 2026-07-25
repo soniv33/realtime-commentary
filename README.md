@@ -73,8 +73,13 @@ src/f1_commentator/
 │   ├── ingest.py             # CLI: bake a real session to JSONL
 │   ├── server.py             # WebSocket broadcast server
 │   └── __main__.py           # python -m f1_commentator.simulator
+├── context/                  # the parallel "colour analyst" knowledge layer
+│   ├── models.py             # typed context pack (standings, history, form, h2h)
+│   ├── build.py              # derive it all from OpenF1 (pure + online halves)
+│   ├── store.py              # per-event relevance + rotating colour beats
+│   └── ingest.py             # CLI: bake a context pack to JSON
 ├── llm/
-│   ├── base.py               # LLMCommentator protocol
+│   ├── base.py               # LLMCommentator protocol (play-by-play + colour)
 │   └── anthropic_client.py   # Claude streaming adapter
 ├── audio/
 │   ├── base.py               # AudioStreamer / AudioSink protocols
@@ -115,6 +120,49 @@ uncompressed timing. The distillation logic lives in
 `simulator/openf1.py` as pure, unit-tested functions; `OpenF1ReplaySource` also
 supports live-distilling without a build step. `data/sample_session.jsonl` remains
 as a tiny synthetic feed for tests and offline runs.
+
+## Two voices: play-by-play + colour context
+
+A transcript of events isn't broadcast. Real F1 has a lap-by-lap caller *and* a
+colour analyst, and this system runs both **in parallel**:
+
+| Track | Trigger | Voice |
+|-------|---------|-------|
+| **Play-by-play** | a threshold event | reactive, one punchy sentence, **preempts** colour mid-line |
+| **Colour** | a lull in the feed | season/circuit context, one sentence, drawn from a rotating pool of beats |
+
+Both share one audio sink, so exactly one voice is ever on air — a narration gate
+serialises them and lets the action cut the analyst off, like a real director.
+
+Play-by-play calls are also **enriched**: an overtake between two drivers carries
+their season head-to-head and championship positions, so the line has depth
+("…their fourth battle this season") instead of just naming the pass.
+
+### Everything is derived, nothing is invented
+
+The colour analyst can only reference facts in the **context pack** — a typed,
+baked JSON artefact computed from telemetry:
+
+* **Championship standings** going into the race (Grand Prix + Sprint points, wins, podiums, gaps)
+* **Circuit history** — the same venue in prior seasons: winner, podium, safety cars, red flags, on-track passes, whether it rained
+* **Driver form** — recent finishing positions
+* **Head-to-head** — race-finish records between any two drivers this season
+
+The prompts forbid stating anything outside the event and the supplied facts, so
+there is no hallucinated history. Build a pack with:
+
+```bash
+python -m f1_commentator.context.ingest --session-key 9582 --out data/zandvoort_2024.context.json
+```
+
+Then set `ORCH_CONTEXT_PACK` to it. With no pack the system degrades cleanly to
+pure play-by-play.
+
+> **Provenance / honest limits.** Standings are computed from finishing order, so
+> they exclude fastest-lap bonus points and post-race stewards' decisions
+> (penalties, DSQs) — totals can sit a few points off the official table. Each
+> pack states this in its `provenance` field. The overtake detector is likewise a
+> heuristic on the position channel, not the official FIA count.
 
 ## Quick start
 
